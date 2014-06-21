@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=SHIFT_JIS">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 9.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<P><FONT size="+2">地面データを作って、Easy3D で表示する方法</FONT></P>
+<P><BR>
+このページでは、ＢＭＰファイルから、地面データを作成する方法を、説明します。<BR>
+<BR>
+パレットのない、<U>２４ビットのＢＭＰしか、使用できません</U>ので、注意してください。<BR>
+<U>３枚とも、同じサイズのＢＭＰ</U>でないと、使用できません。<BR>
+現バージョンでは、３枚のＢＭＰから、地面を生成します。<BR>
+（今後、増えるかもしれません。）<BR>
+<BR>
+一枚目は、地面の座標を決めるために使用します。<BR>
+二枚目は、道の位置を決めるために使用します。<BR>
+三枚目は、川の位置を決めるために使用します。<BR>
+<BR>
+３枚のＢＭＰの例を、下に示します。<BR>
+</P>
+<P><IMG src="jpegfiles/e3dhsp_g.jpg" width="258" height="277" border="0">　一枚目、座標データ用<BR>
+<BR>
+<IMG src="jpegfiles/e3dhsp_g_road.jpg" width="258" height="278" border="0">　二枚目、道データ用<BR>
+<BR>
+<IMG src="jpegfiles/e3dhsp_g_river.jpg" width="258" height="277" border="0">　三枚目、川データ用<BR>
+<BR>
+<BR>
+まず、一枚目のＢＭＰ（赤いＢＭＰ）から説明します。<BR>
+座標のデータの元となるわけですが、<BR>
+地面を上から見た図と、考えてください。<BR>
+横軸方向が、Ｘ座標、<BR>
+縦軸方向が、Ｚ座標となります。<BR>
+<BR>
+分かりやすく、格子の線を入れた図を、下に示します。<BR>
+（実際のデータには、格子は入れないでください。）<BR>
+<BR>
+<IMG src="jpegfiles/e3dhsp_g_lattice.jpg" width="500" height="500" border="0"><BR>
+</P>
+<P>ｘ、ｚの格子の本数は、<B>E3DLoadGroundBMP関数に渡す、divx, divz</B> で指定します。<BR>
+データの大きさは、<B>E3DLoadGroundBMP関数に渡す、maxx, maxz</B>で指定します。<BR>
+<BR>
+今、上の図のように、ｘ方向の１３番目の線と、ｚ方向の８番目の線の交わる点は、<BR>
+座標に直すと、<BR>
+（x,y,z） = ( (maxx / divx) * 13, Y, (maxz / divz ) * 8 )<BR>
+となります。<BR>
+<BR>
+さて、ここで、まだ説明していない、Ｙ座標の値ですが、<BR>
+格子の交点の、色の濃淡から、高さを計算します。<BR>
+<BR>
+<U>濃い色は、Ｙ座標が高く、薄い色は、Ｙ座標が低くなるように、計算</U>されます。<BR>
+色の濃淡のデータであれば、赤色でなくても、どんな色でもＯＫです。<BR>
+<BR>
+一番濃い色の部分の高さは、<B>E3DLoadGroundBMP関数に渡す、maxheight</B>で指定します。<BR>
+<BR>
+<BR>
+<BR>
+ここまで、分かれば、あとの２枚も同じです。<BR>
+<U>２枚目</U>の道データ用のＢＭＰも、Ｘ，Ｚの格子の交点の色を読みとって、<BR>
+そこに、<U>濃い色が付いていれば、道</U>になります。<BR>
+<BR>
+<U>３枚目</U>の川データ用のＢＭＰも、Ｘ，Ｚの格子の交点の色を読みとって、<BR>
+そこに、<U>濃い色が付いていれば、川</U>になります。<BR>
+<BR>
+<BR>
+</P>
+<P>ところで、どうやって、普通の地面と、道と川を表示するのか、<BR>
+疑問に思うかもしれませんので、<BR>
+一応、説明しておきます。<BR>
+<BR>
+下の図を見てください。<BR>
+<BR>
+<IMG src="jpegfiles/e3dhsp_g_bg43.jpg" width="264" height="284" border="0"><BR>
+</P>
+<P>上の絵は、地面のテクスチャーとして使用します。<BR>
+縦横、２こずつ分割して、４つの領域として使用します。<BR>
+<BR>
+普通の地面には、緑っぽい部分が貼られるようにし、<BR>
+道には、茶色、<BR>
+川には、水色の部分が、貼られるように表示します。<BR>
+<BR>
+なんとも、いんちきくさい方法ですが（笑）。。<BR>
+<BR>
+このテクスチャーファイル名は、<B>E3DLoadGroundBMP関数に渡す、filename4</B>で指定します。<BR>
+<BR>
+<BR>
+サンプルとして、地面上を動くためのスクリプトを、作ってみました。<BR>
+Easy3D For HSPのzipの中に、<BR>
+e3dhsp_ground.as というサンプルを入れました。<BR>
+<BR>
+下の図は、その、実行画面です。<BR>
+<BR>
+<BR>
+<IMG src="jpegfiles/e3dhsp_ground3.jpg" width="643" height="502" border="0"></P>
+<P><BR>
+同じ地面データを、縦横２個ずつ並べてみました。<BR>
+矢印キーで移動できます。<BR>
+<BR>
+<BR>
+<B>ver1.0.1.0</B>で、地面とのあたり判定が、つきました。<BR>
+<B>ver1.0.1.2</B>で、ビルボードの木が追加されました。<BR>
+<BR>
+<BR>
+e3dhsp_ground.asで使用されている、モロ星人のデータは、naosukeAniさんの作を加工したものです。<BR>
+モロは、版権ものです。著作権は、原作者に帰属します。<BR>
+<BR>
+</P>
+<P>プログラムしないでも、地面データを確認できるように、<BR>
+Ground Viewerを作りました。<BR>
+<A href="gviewer.htm">Ground Viewerのページ</A>をご覧ください。<BR>
+<BR>
+<BR>
+<U>移動可能領域を設定</U>したい場合には、<BR>
+http://www5d.biglobe.ne.jp/~ochikko/HSPde3DKakuge/nyuumon/wallfrombmp.htm<BR>
+をお読みください。<BR>
+<BR>
+<BR>
+</P>
+<P><A href="e3dhsp.htm">Easy3D For HSPのページに戻る</A><BR>
+<BR>
+<A href="index.htm">トップページに戻る</A><BR>
+</P>
+</BODY>
+</HTML>

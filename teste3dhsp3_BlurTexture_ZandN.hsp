@@ -1,0 +1,206 @@
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 256 : screenh = 256
+//	screenw = 128 : screenh = 128
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid0
+	E3DSetClearCol scid0, 0, 0, 0, 0
+
+	screen 2, screenw * 2, screenh * 2, 1
+	E3DCreateSwapChain 2, -1, scid1
+//	E3DSetClearCol scid1, 0, 0, 0, 0
+
+
+	;カメラの初期化
+//	camposx = 0.0 : camposy = 0.0 : camposz = -2000.0
+	camposx = 2000.0 : camposy = 0.0 : camposz = 0.0
+	E3DSetCameraPos camposx, camposy, camposz	
+//	camdegxz = 180.0 : camdegy = 0.0
+//	E3DSetCameraDeg camdegxz, camdegy
+	E3DSetCameraTarget 0.0, 0.0, 0.0, 0.0, 1.0, 0.0
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//猫データ読み込み
+//	pathbuf.0 = mediadir + "\\bbs_bone1_red2.sig"
+	pathbuf.0 = mediadir + "\\sphere2.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+//	E3DSetPos hsid1, 300.0, 300.0, 0.0
+
+
+//モーションの読み込み
+//	pathbuf.0 = mediadir + "\\bbs_idle.qua"
+//	E3DAddMotion hsid1, pathbuf.0, motid1, framemax1
+
+
+//	E3DSetMotionKind hsid1, motid1 	
+
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 200
+	lightg1 = 200
+	lightb1 = 200
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+//	E3DCreateRenderTargetTexture screenw, screenh, scid_s, texid_s, okflag, D3DFMT_A8R8G8B8
+//	E3DSetClearCol scid_s, 255, 255, 0, 255
+
+	E3DCreateRenderTargetTexture screenw, screenh, scid_z, texid_z, okflag, D3DFMT_A8R8G8B8
+//	E3DSetClearCol scid_z, 255, 255, 0, 255
+//	E3DCreateRenderTargetTexture screenw, screenh, scid_z, texid_z, okflag, D3DFMT_R32F
+	assert okflag
+
+	
+	E3DCreateRenderTargetTexture screenw, screenh, scid_n, texid_n, okflag, D3DFMT_A8R8G8B8
+//	E3DSetClearCol scid_n, 255, 255, 0, 255
+//	E3DCreateRenderTargetTexture screenw, screenh, scid_n, texid_n, okflag, D3DFMT_R32F
+	assert okflag
+
+
+	E3DCreateRenderTargetTexture screenw, screenh, scid_z2, texid_z2, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture screenw, screenh, scid_n2, texid_n2, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+
+
+	E3DCreateSprite mediadir + "\\dummy256.png", 0, spid1
+	E3DGetSpriteSize spid1, spw1, sph1
+	E3DSetTextureToDispObj -2, spid1, texid_z
+//	E3DSetTextureToDispObj -2, spid1, texid_s
+//	E3DSetTextureToDispObj -2, spid1, texid_n
+	
+	E3DCreateSprite mediadir + "\\dummy256.png", 0, spid2
+	E3DGetSpriteSize spid2, spw2, sph2
+	E3DSetTextureToDispObj -2, spid2, texid_n
+//	E3DSetTextureToDispObj -2, spid2, texid_n2
+
+
+	chkfps1 = 0
+
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+//	E3DSetNewPose hsid1, frameno1
+
+	//テクスチャにシーンをレンダリング
+	E3DBeginScene scid0
+		E3DChkInView scid0, hsid1
+		E3DRender scid0, hsid1, 0, frameno1, 0
+		E3DRender scid0, hsid1, 1, frameno1, 0, 0, 0, 1		
+		gosub *DrawText
+	E3DEndScene
+	E3DPresent scid0
+
+
+	E3DRenderZandN scid_z, scid_n, scid0, hsid1, 0, 3
+//	E3DRenderZandN scid_z, scid_n, scid0, hsid1, 0, 7
+
+//	E3DRenderZandN scid_z2, scid_n2, scid0, hsid1, 0, 7
+
+//	E3DRenderZandN scid_z, scid_n, scid0, hsid1, 0, 3
+//	E3DRenderZandN scid_z, scid_n, scid_z, hsid1, 0, 3
+//	E3DRenderZandN scid_z, scid_n, scid0, hsid1, 4, 3
+//	E3DRenderZandN scid_z, scid_n, scid1, hsid1, 1, 3
+
+	
+	//メイン画面に表示
+	E3DBeginScene scid1
+		E3DBeginSprite
+			//元画像を表示
+			scalex = 1.0
+			scaley = 1.0
+			spx = 0
+			spy = 0
+			E3DRenderSprite spid1, scalex, scaley, spx, spy, 0.001
+
+			//ぼかし画像を表示
+			spx = screenh
+			spy = 0
+			E3DRenderSprite spid2, scalex, scaley, spx, spy, 0.001
+		E3DEndSprite
+	E3DEndScene
+	E3DPresent scid1
+
+	waitbyfps 60, chkfps1
+	
+	arno = 0
+	repeat 49
+		befno = 48 - arno
+		aftno = 49 - arno
+		arfps.aftno = arfps.befno
+		arno++
+	loop	
+	arfps.0 = chkfps1
+
+//assert
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	lcnt = 0
+	avfps = 0
+	repeat 50
+		avfps += arfps.lcnt
+		lcnt++
+	loop
+	avfps = avfps / 50
+	textposx = 10 : textposy = 80
+	strchk3 = "avfps   " + avfps
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+
+
+	textposx = 10 : textposy = 140
+	strchk3 = "chkfps1 " + chkfps1
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+
+	return
+
+

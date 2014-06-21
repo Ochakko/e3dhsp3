@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="e3dhsp">
+</Property><Property Name="ソリューション ファイル" Value="C:\pgfile9\e3dhsp3\e3dhsp.sln">
+</Property><Property Name="ユーザー オプション ファイル" Value="C:\pgfile9\e3dhsp3\e3dhsp.suo">
+</Property><Property Name="Date" Value="2006年8月27日">
+</Property><Property Name="Time" Value="17:21">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="e3dhsp.sln" Description="ファイルは正常に C:\pgfile9\e3dhsp3\e3dhsp.sln.old としてバックアップされました。">
+</Event><Event ErrorLevel="0" Project="" Source="e3dhsp.suo" Description="ファイルは正常に C:\pgfile9\e3dhsp3\e3dhsp.suo.old としてバックアップされました。">
+</Event><Event ErrorLevel="0" Project="e3dhsp" Source="e3dhsp.vcproj" Description="Visual C++ はセキュリティで保護された C ランタイム ライブラリ バージョンをサポートします。このライブラリの使用は既定でオンにされています。プロジェクトをビルドするときに、使用できない機能についての警告が表示されるかもしれません。コードをより安全にするために、これらの警告を修正してください。">
+</Event><Event ErrorLevel="0" Project="e3dhsp" Source="e3dhsp.vcproj" Description="C/C++ コンパイラの既定の設定は、ISO 標準の C++ により準拠するように編集されました。変更には、ループ スコープに対して標準 C++ を適用したり、wchar_t をネイティブ型としてサポートすることなどが含まれます。これらの変更によって、既存のコードが、コードへの変更、またはビルドされたときのコンパイラ オプションを含まずに、コンパイルされることがなくなる可能性があります。">
+</Event><Event ErrorLevel="1" Project="e3dhsp" Source="e3dhsp.vcproj" Description="Visual C++ プロジェクトが埋め込み (既定で) Windows SxS マニフェストを生成するための必要条件によって、プロジェクト内のマニフェスト ファイルは、マニフェスト ツールを使用してビルドすることから自動的に除外されます。すべてのマニフェスト ファイルに含まれる依存関係情報を、ソース コードからインクルードされたヘッダー ファイル内で、&quot;#pragma コメント(リンカ、&quot;&lt;依存関係をここに挿入&gt;&quot;)&quot; に変換することをお勧めします。プロジェクトが、リソース (.rc) ファイルをとおして RT_MANIFEST リソース セクションにマニフェストを埋め込んでいる場合、プロジェクトが正しくビルドされる前に、行をコメント アウトしなければなりません。">
+</Event><Event ErrorLevel="1" Project="e3dhsp" Source="e3dhsp.vcproj" Description="C++ コンパイラの準拠の変更によって、プロジェクトがビルドする前にコード変更が必要になる場合があります。C++ コンパイラの旧バージョンは、メンバ関数名 (例: MemberFunctionName) によるメンバ関数ポインタの指定を許可していました。C++ 標準では、演算子のアドレスを使用した完全修飾名 (例: &amp;ClassName::MemberFunctionName) が必要です。プロジェクトが Windows フォーム デザイナで使用されたフォームやコントロールを含む場合は、デザイナが生成したコードがデリゲート構築で規格外の構文を使ったため (イベント ハンドラを使用して)、InitializeComponent でコード変更をしなければならない可能性があります。">
+</Event><Event ErrorLevel="0" Project="e3dhsp" Source="e3dhsp.vcproj" Description="プロジェクト ファイルは正常に 'C:\pgfile9\e3dhsp3\e3dhsp.vcproj.7.10.old' としてバックアップされました。">
+</Event><Event ErrorLevel="0" Project="e3dhsp" Source="e3dhsp.vcproj" Description="プロジェクトは正常にアップグレードされました。">
+</Event><Event ErrorLevel="3" Project="e3dhsp" Source="e3dhsp.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="e3dhsp.sln" Description="ソリューションは正常に変換されました">
+</Event><Event ErrorLevel="3" Project="" Source="e3dhsp.sln" Description="Converted">
+</Event></UpgradeLog>

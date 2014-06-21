@@ -1,0 +1,184 @@
+	title "ƒ|ƒŠƒSƒ“‘ÌdŒv"
+
+#include "e3dhsp3.as"
+
+
+	#const BASEFPS		30	;Šî–{FPS
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+
+	screenw = 640  :  screenh = 480
+	screenx =  72  :  screeny =  48
+	screen 0, screenw, screenh, 1, screenx, screeny
+
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;ƒJƒƒ‰‚Ì‰Šú‰»
+	E3DCreateQ camq
+	E3DCreateQ invcamq
+
+	
+	;•½sŒõŒ¹
+	E3DCreateLight lid
+	E3DSetDirectionalLight lid, 0, -1, 0, 255, 255, 255
+
+	hsid = -1
+	motid = -1
+	maxframe = 0
+
+	dim keybuf, 256
+	sdim modelname, 256
+	sdim motionname, 256
+
+	gsel 0 
+	screen 6, 86, 36, 8, ginfo(4) + screenw, ginfo(5)
+	gsel 6, 2
+	cls 1 : font "‚l‚r ‚oƒSƒVƒbƒN", 10, 0 : objmode 2, 1
+
+	;button
+		objsize 50, 18
+		pos 0, 0 : button "sig“Çž", *sigfilename
+		pos 0, 18 : button "qua“Çž", *quafilename
+
+		objsize 36, 36
+		pos 50, 0 : button "Œv‘ª", *weightcheck
+
+	fps = BASEFPS
+	checkturn = 1000
+
+
+*MainLoop
+
+	if hsid ! -1{
+		gsel 0
+		E3DGetKeyboardState keybuf
+		
+		gosub *MoveCamera
+
+		E3DBeginScene
+		
+		E3DSetNewPose hsid, frameno
+		E3DChkInView scid1, hsid
+		E3DRender scid1, hsid, 0, frameno, 0, 0, 1, 1
+		E3DRender scid1, hsid, 1, frameno, 0, 0, 1, 0
+
+		E3DEndScene
+		E3DPresent
+	}
+
+	waitbyfps fps, chkfps1
+
+	if keybuf.VK_ESCAPE	 :  end
+	goto *MainLoop
+
+
+*weightcheck
+	if hsid = -1 : goto *MainLoop
+	score = 0
+	
+	;E3DRdtscStart
+	repeat checkturn
+
+		E3DBeginScene
+		
+		E3DSetNewPose hsid, frameno
+		E3DChkInView scid1, hsid
+		E3DRender scid1, hsid, 0, frameno, 0, 0, 1, 1
+		E3DRender scid1, hsid, 1, frameno, 0, 0, 1, 0
+		
+		E3DEndScene
+		E3DPresent
+
+		;E3DRdtscStop tmp_score
+		E3DWaitByFPS 10000000, tmp_score
+		score += tmp_score
+	loop
+	
+	gosub *drawresult
+	
+	goto *MainLoop
+
+*drawresult
+	score = score / checkturn
+	tmp_score = BASEFPS * 10000 / score
+	dialog "SCORE: " + tmp_score
+	return
+	
+*sigfilename
+	dialog "sig", 16, "E3DÓÃÞÙÃÞ°À"
+	if stat = 0 : goto *MainLoop
+	if hsid ! -1{
+		E3DDestroyHandlerSet hsid
+		hsid = -1
+		motid = -1
+		maxframe = 0
+	}
+	pathbuf = refstr
+	modelname=getpath(pathbuf, 8)
+	E3DSigLoad pathbuf, hsid
+
+	;E3DGetBBox hsid, -1, 0, minx, maxx, miny, maxy, minz, maxz
+	maxy = 2200
+	miny = 0
+	
+	cameradist = (maxy - miny) * 1.25
+	camposx = -cameradist
+	camposy = ( maxy + miny ) / 2
+	camposz = 0
+	viewpoint = 180
+
+	goto *mainloop
+
+*quafilename
+	if hsid ! -1{
+		dialog "qua", 16, "E3DÓ°¼®ÝÃÞ°À"
+		if stat = 0 : goto *MainLoop
+		pathbuf = refstr
+		motionname=getpath(pathbuf, 8)
+		E3DAddMotion hsid, pathbuf, motid, maxframe
+	}
+
+	goto *mainloop
+
+
+
+*MoveCamera
+
+	k = 0
+
+	if keybuf.VK_UP		 :  k = k | 2
+	if keybuf.VK_DOWN	 :  k = k | 8
+	if keybuf.VK_LEFT	 :  k = k | 1
+	if keybuf.VK_RIGHT	 :  k = k | 4
+
+	if keybuf.VK_LSHIFT	 :  k = k | 16
+	if keybuf.VK_RSHIFT	 :  k = k | 16
+
+	if k & 1  :  viewpoint += 4
+	if k & 4  :  viewpoint -= 4
+	if (k & 18) = 2 :  camposy += 20 : 
+	if (k & 24) = 8 :  camposy -= 20
+	if (k & 18) = 18 :  cameradist -= 40
+	if (k & 24) = 24:  cameradist += 40
+
+	if viewpoint > 360  : viewpoint -= 360
+	if viewpoint < 0    : viewpoint += 360
+
+	tmp_camposz = 0.0
+	tmp_camposx = 0.0
+	E3DCos viewpoint, tmp_camposz
+	E3DSin viewpoint, tmp_camposx
+	camposx = 1.0 * cameradist * tmp_camposx
+	camposz = 1.0 * cameradist * tmp_camposz
+	E3DSetCameraPos camposx, camposy, camposz
+	E3DSetCameraTarget 0, camposy, 0, 0, 1, 0
+
+	E3DGetCameraQ camq
+	E3DInvQ camq, invcamq
+
+	return

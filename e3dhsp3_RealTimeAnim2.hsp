@@ -1,0 +1,172 @@
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media\\Anime"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+
+	//地面読み込み
+	pathbuf.0 = mediadir + "\\stage\\stage2.mqo"
+	E3DLoadMQOFileAsGround pathbuf.0, 1000.0, hsid0, 0, BONETYPE_RDB2
+
+	//キャラクター
+	pathbuf.0 = mediadir + "\\bucho\\buch.sig"
+	E3DSigLoad pathbuf.0, hsid1, 0, 1.0
+
+	//moa読み込み
+	pathbuf.0 = mediadir + "\\bucho\\mot_acc.moa"
+	E3DLoadMOAFile hsid1, pathbuf.0, -1, 1.0
+
+	//GPA読み込み
+	pathbuf.0 = mediadir + "\\global_pos_anime.gpa"
+	E3DLoadGPFile hsid1, pathbuf.0, gpanimno
+	E3DGetGPFrameNum hsid1, gpanimno, gpanimframenum
+	E3DSetGPGroundHSID hsid1, gpanimno, hsid0
+	E3DSetGPAnimNo hsid1, gpanimno
+	
+
+	//cam読み込み
+	pathbuf.0 = mediadir + "\\cam_anime.cam"
+	E3DLoadCameraFile pathbuf.0, camanimno
+	E3DGetCameraFrameNum camanimno, camanimframenum
+	E3DSetCameraAnimNo camanimno
+
+	//MOE読み込み
+	pathbuf.0 = mediadir + "\\mot_event_anime.moe"
+	E3DLoadMOEFile hsid1, pathbuf.0, moeanimno
+	E3DGetMOEFrameNum hsid1, moeanimno, moeanimframenum
+	E3DSetMOEAnimNo hsid1, moeanimno
+
+	//SSF読み込み
+	pathbuf.0 = mediadir + "\\sound_set.ssf"
+	E3DLoadSSF pathbuf.0
+
+	//SAF読み込み
+	pathbuf.0 = mediadir + "\\sound_anime.saf"
+	E3DLoadSAF pathbuf.0, sndanimno
+	E3DGetSndAnimFrameNum sndanimno, sndanimframenum
+	E3DGetSndAnimBGM sndanimno, bgmid
+	E3DGetSndAnimFPS sndanimno, fps
+	E3DGetSndAnimMode sndanimno, bgmloopmode
+	
+	//ライトの作成
+	lightdirx1 = 1.0
+	lightdiry1 = -1.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+
+	//音楽再生開始
+	E3DGetSoundStartCnt bgmid, bgmstartcnt
+	sndframeno = 0//!!!!!!!
+	E3DStartSndAnim sndanimno, 0
+	E3DGetSoundEndCnt bgmid, bgmendcnt
+	playflag = 1//!!!!!!!!!
+	stopflag = 0
+
+	
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	E3DGetSoundStartCnt bgmid, tmpstartcnt
+	E3DGetSoundEndCnt bgmid, tmpendcnt
+
+	//終了判定
+	if( (tmpstartcnt > bgmstartcnt) && (sndframeno >= (sndanimframenum - 1)) ){
+		playflag = 0
+	}
+	if( tmpendcnt > bgmendcnt ){
+		playflag = 0
+	}
+
+	if( playflag == 1 ){
+
+		if( tmpstartcnt <= bgmstartcnt ){
+			//まだ再生が始まっていない
+			sndframeno = 0;
+		}else{
+			E3DGetSoundSamplesPlayed bgmid, cursamples
+			E3DConvSoundSampleToFrame bgmid, fps, cursamples, sndframeno
+		}
+		camframeno = limit( sndframeno, 0, (camanimframenum - 1) )
+		E3DSetCameraFrameNo camanimno, -1, camframeno, 0
+
+		gpframeno = limit( sndframeno, 0, (gpanimframenum - 1) )
+		E3DSetGPFrameNo hsid1, gpanimno, gpframeno, 0
+
+		moeframeno = limit( sndframeno, 0, (moeanimframenum - 1) )
+		E3DSetMOEFrameNo hsid1, moeanimno, moeframeno, 0
+
+		E3DSetSndAnimFrameNo sndanimno, sndframeno
+
+	}else{
+		if( stopflag == 0 ){
+			E3DStopSndAnim sndanimno
+			stopflag = 1
+		}
+	}
+
+	
+	E3DChkInView scid1, hsid0
+	E3DChkInView scid1, hsid1
+
+	E3DBeginScene scid1
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid0, 0, 0, 0
+		E3DRender scid1, hsid1, 0, frameno1, 0
+
+		;半透明部分の描画をする
+		E3DRender scid1, hsid0, 1, 0, 0, 0, 0, 1
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+		
+	E3DEndScene
+	E3DPresent scid1
+
+
+	await 0//必ず必要
+	E3DPCWait fps, retfps//E3DWaitByFPSよりも高精度
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+

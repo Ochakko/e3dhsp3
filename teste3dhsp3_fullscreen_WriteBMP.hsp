@@ -1,0 +1,206 @@
+
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+	
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+
+	E3DEnableDbgFile
+
+	dim keybuf, 256 
+
+	fullscreenflag = 1 //フルスクリーンにする場合に１を指定する。ウインドウモードの時は０を指定する
+
+	screenw = 640 : screenh = 480
+	bits = 32
+	//失敗した場合は、６４０×４８０の３２ビットをチェックする。
+	screenw = 640 : screenh = 480
+	E3DCheckFullScreenParams screenw, screenh, bits, validflag, validw, validh, validbits
+
+	if( validflag == 0 ){
+		//失敗した場合は、６４０×４８０の１６ビットをチェックする。
+		screenw = 640 : screenh = 480
+		bits = 16
+		E3DCheckFullScreenParams screenw, screenh, bits, validflag, validw, validh, validbits
+		
+		if( validflag == 0 ){
+			//失敗した場合は、フルスクリーンをやめる。
+			fullscreenflag = 0
+		}
+	}
+
+	if( validflag == 1 ){
+		screenw = validw
+		screenh = validh
+	}	
+	screen 0, screenw, screenh, 1
+
+	; アンチエイリアスの度合いを決める、マルチサンプルの最大値 multisamplenum を取得する。
+	if( fullscreenflag == 1 ){
+		winmode = 0
+	}else{
+		winmode = 1
+	}
+	E3DGetMaxMultiSampleNum bits, winmode, multisamplenum
+
+
+//	multisamplenum = 0
+
+	;初期化
+	E3DInit 0, -1, fullscreenflag, validbits, multisamplenum, scid1
+	
+
+	;カメラ変数の初期化
+	cameradist = 3000.0
+	cameraheight = 1000.0
+	camdegxz = 180.0
+	camposx = 0.0
+	camposy = cameraheight
+	camposz = 0.0
+
+
+	;file のpath 用のバッファーの作成
+	
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	;proj_near = 100 : proj_far = 20000 : proj_fov = 45
+	;E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	;以下、ライトの設定
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	;平行光源
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+
+//	pathbuf.0 = mediadir + "\\my\\my.sig"
+	pathbuf.0 = mediadir + "\\bonnya\\bonnya.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+
+	;  全てのモデルの、アンチエイリアスをオンにする。！！！！！！！！！！！！！！！！
+	E3DSetRenderState hsid1, -1, D3DRS_MULTISAMPLEANTIALIAS, 1
+
+
+
+	pathbuf.0 = mediadir + "\\lake.bmp"
+	pathbuf.1 = "dummy"
+	E3DCreateBG scid1, pathbuf.0, pathbuf.1, 0.0, 0.0, 0
+
+	chkfps1 = 0
+
+*main
+
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	if( keybuf.'1' == 1 ){
+		E3DWriteBmpFromSurface mediadir + "\\0testbmp.bmp", scid1
+	}
+
+
+	gosub *MoveCamera
+
+
+	E3DChkInView scid1, hsid1
+
+	E3DBeginScene scid1
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid1, 0, frameno1, 0
+		;半透明部分の描画をする
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+		gosub *DrawText
+
+	E3DEndScene
+	E3DPresent scid1
+
+	waitbyfps 60, chkfps1
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+
+
+*MoveCamera
+	
+	cameraupdate = 0
+
+	if ( keybuf.VK_LEFT == 1 ) {
+		camdegxz += 1
+		if camdegxz > 360.0 : camdegxz -= 360.0
+		cameraupdate = 1
+	}
+
+	if ( keybuf.VK_RIGHT == 1 ) {
+		camdegxz -= 1
+		if camdegxz < 0.0 : camdegxz += 360.0
+		cameraupdate = 1
+	}
+	
+	if ( keybuf.VK_UP == 1 ) {
+		camposy += 10.0
+		cameraupdate = 1		
+	}
+
+	if ( keybuf.VK_DOWN == 1 ) {
+		camposy -= 10.0
+		cameraupdate = 1
+	}
+
+	E3DSin camdegxz, camposx
+	camposx *= cameradist
+	E3DCos camdegxz, camposz
+	camposz *= cameradist
+	
+	E3DSetCameraPos camposx, camposy, camposz
+	E3DSetCameraTarget 0.0, camposy, 0.0, 0.0, 1.0, 0.0
+
+	return
+
+
+*DrawText
+
+	textposx = 10 : textposy = 10
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	textposx = 10 : textposy = 300
+	str5 = "chkfps1  " + chkfps1
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, str5
+
+	textposy += 30
+	sdim str6, 1024
+	str6 = "screen Width " + screenw + "  screen Height " + screenh + "  bits " + validbits + "  fullscreenflag " + fullscreenflag
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, str6
+
+	textposy += 30
+	str5 = "multisamplenum  " + multisamplenum
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, str5
+	
+	return
+

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 6.5.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<P><FONT size="+2">線の種類の説明</FONT><BR>
+</P>
+<P><BR>
+E3DCreateLine命令で作成できる線の種類は、２種類あります。<BR>
+それぞれを、LINELIST型、LINESTRIP型と呼びます。<BR>
+<BR>
+下の図を見てください。<BR>
+<BR>
+LINELIST型の場合は、１本１本、途切れた線を書くのに便利です。<BR>
+pointpos中のデータは、<BR>
+点の始点、点の終点、次の点の始点、次の点の終点。。。<BR>
+のように並んでいると、見なされます。<BR>
+<BR>
+LINESTRIP型は、１本につながった線を書くのに便利です。<BR>
+pointpos中のデータは、<BR>
+１本の線における、最初の点、次の点、次の次の点。。。<BR>
+のように並んでいると、見なされます。<BR>
+<BR>
+LINELIST型の線を作りたい場合は、linekind引数に２を、<BR>
+LINESTRIP型の線を作りたい場合は、linekind引数に３を<BR>
+指定してください。<BR>
+</P>
+<P><IMG src="jpegfiles/linekind.jpg" width="512" height="256" border="0"><BR>
+<BR>
+</P>
+<P><A href="index.htm">トップページに戻る</A></P>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+#include "hspinet.as"
+
+	title "簡易GENOウィルス感染チェッカー"
+
+	width 600,340
+	pos 0,0:objsize 200,40
+	button "\"sqlsodbc.chm\"チェック",*sqlsodbc
+	pos 200,0:objsize 200,40
+	button "\"cmd.exe\"起動チェック",*cmd
+	pos 400,0:objsize 200,40
+	button "\"regedit.exe\"チェック",*regedit
+	pos 0,40:sdim string,32000
+	mesbox string,600,300,0:id=stat
+
+	stop
+*sqlsodbc
+	
+	file.0=""+dir_win+"\\Help\\mui\\sqlsodbc.chm"
+	file.1=""+dir_sys+"\\sqlsodbc.chm"
+	;C:\Windows\System32\sqlsodbc.chm
+	repeat 2
+		string+="-> \""+file.cnt+"\"がファイルが存在するか調べています\n"
+		exist file.cnt
+		if strsize=-1{
+			string+="--> 見つかりませんでした >> OK\n"
+			}else{
+			filemd5 tmp,file.cnt
+			string+="--> MD5ハッシュは"+tmp+"です\n"
+			if tmp="f639afde02547603a3d3930ee4bf8c12"{
+				string+="--> MD5ハッシュは正常です >> OK\n"
+				}else{
+				string+="--> MD5ハッシュが正規のものと違うようです >> NG\n"
+				}
+		}
+	loop
+	string+="--> NGになった場合は感染の可能性があります\n\n"
+	objprm id,string
+	stop
+	
+*cmd
+	string+="-> コマンドプロンプトを起動します\n"
+	file.0=""+dir_sys+"\\cmd.exe"
+	file.1=""+dir_win+"\\command.exe"
+	repeat 2
+		exist file.cnt
+		if strsize!=-1:exec file.cnt:break
+	loop
+	string+="--> 黒い窓が表示されない場合は、"
+	string+="GENOウィルスに感染している可能性があります\n\n"
+	objprm id,string
+	stop
+	
+*regedit
+	string+="-> レジストリエディタを起動します\n"
+	file=""+dir_win+"\\regedit.exe"
+	exist file
+	if strsize!=-1:exec file
+	string+="--> レジストリエディタが起動しない場合は、"
+	string+="GENOウィルスに感染している可能性があります\n\n"
+	objprm id,string
+	stop
+

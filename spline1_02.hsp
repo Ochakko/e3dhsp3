@@ -1,0 +1,172 @@
+//#runtime "hsplet3"
+SX=800 : SY=300
+screen 0,SX,SY
+
+#module
+	//任意の座標に円を描く
+	#deffunc drawCircle double x, double y
+		circle x-4.,y-4.,x+4.,y+4.,0.
+		return
+
+	//スプライン曲線の任意のX座標に対応するY座標を返す
+	//(x1,y1)が始点、(x3,y3)が終点、(x2,y2)が制御点
+	//引数のxは (x1≦x≦x3) を満たすこと
+	#defcfunc getSplineYfromX double x, double x1, double y1, double x2, double y2, double x3, double y3
+		a= x1-2.*x2+ x3
+		b= -2.*x1+ 2.*x2
+		c= x1- x
+		if( a==0 ){
+			t= -c/b
+		}else{
+			t= (-b+sqrt(b*b-4.*a*c))/ (2.*a)
+		}
+		t2= 1.- t
+		y= t2*t2*y1+ 2.*t*t2*y2+ t*t*y3
+		return y
+
+	//制御点が1つのスプライン曲線を任意の分割数で描画
+	//(x1,y1)が始点、(x3,y3)が終点、(x2,y2)が制御点
+	#deffunc drawSpline int div, double x1, double y1, double x2, double y2, double x3, double y3
+		pos x1,y1
+		repeat div
+			x= x1+ (x3-x1)/div*cnt
+			line x, getSplineYfromX(x, x1,y1, x2,y2, x3,y3)
+		loop
+		line x3,y3
+		return
+		
+	//制御点が2つのスプライン曲線を任意の分割数で描画
+	//(x1,y1)が始点、(x4,y4)が終点、(x2,y2),(x3,y3)が制御点
+	#deffunc drawSpline2 int div, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4
+		x23= (x2+x3)/2.
+		y23= (y2+y3)/2.
+		
+		divLen= (x4-x1)/div
+		div1= int((x23-x1)/divLen)+1
+		
+		pos x1,y1
+		repeat div1
+			x= x1+ double(cnt)*divLen
+			line x, getSplineYfromX(x, x1,y1, x2,y2, x23,y23)
+		loop
+		repeat div-div1,div1
+			x= x1+ double(cnt)*divLen
+			line x, getSplineYfromX(x, x23,y23, x3,y3, x4,y4)
+		loop
+		line x4,y4
+		
+		return
+
+	//制御点が2つのスプライン曲線をフルピクセルで描画
+	//(x1,y1)が始点、(x4,y4)が終点、(x2,y2),(x3,y3)が制御点
+	#deffunc drawSpline3 double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4
+		x23= (x2+x3)/2.
+		y23= (y2+y3)/2.
+		
+		div1= int(x23-x1)+1
+		
+		pos x1,y1
+		repeat div1
+			x= x1+ double(cnt)
+			line x, getSplineYfromX(x, x1,y1, x2,y2, x23,y23)
+		loop
+		repeat int(x4-x23)-1,div1
+			x= x1+ double(cnt)
+			line x, getSplineYfromX(x, x23,y23, x3,y3, x4,y4)
+		loop
+		line x4,y4
+		
+		return
+#global
+
+
+ddim x,10
+ddim y,10
+ddim k,10
+
+x(0)=8.   : y(0)=10.		//節点の座標
+x(1)=82.  : y(1)=10.
+x(2)=156. : y(2)=200.
+x(3)=250. : y(3)=200.
+x(4)=344. : y(4)=100.
+x(5)=438. : y(5)=200.
+x(6)=532. : y(6)=200.
+x(7)=626. : y(7)=300.
+x(8)=720. : y(8)=200.
+x(9)=794. : y(9)=200.
+
+k(0)=0.5	//制御点自動設定パラメータ(0.0～1.0)
+k(1)=0.5	//0.0で線形補間
+k(2)=0.5	//0.5くらいが一番滑らかに見える
+k(3)=0.5
+k(4)=0.5
+k(5)=0.5
+k(6)=0.5
+k(7)=0.5
+k(8)=0.5
+k(9)=0.5
+
+*main
+	redraw 0
+	color 255,255,255 : boxf 0,0,SX,SY
+
+
+	repeat 7,1
+		//スプライン曲線を描画
+		color 0,0,0
+		x0c1= (x(cnt-1)+x(cnt))/2.	//各節点の中間の座標を計算
+		y0c1= (y(cnt-1)+y(cnt))/2.
+		x1c2= (x(cnt)+x(cnt+1))/2.
+		y1c2= (y(cnt)+y(cnt+1))/2.
+		x2c3= (x(cnt+1)+x(cnt+2))/2.
+		y2c3= (y(cnt+1)+y(cnt+2))/2.
+		
+		x1b= x(cnt)+(x1c2-x(cnt))*k(cnt)					//制御点を計算
+		y1b= y(cnt)+(y1c2-y0c1)/(x1c2-x0c1)*(x1b-x(cnt))
+		x2a= x(cnt+1)+(x1c2-x(cnt+1))*k(cnt+1)
+		y2a= y(cnt+1)+(y2c3-y1c2)/(x2c3-x1c2)*(x2a-x(cnt+1))
+		
+		drawSpline3 x(cnt),y(cnt), x1b,y1b, x2a,y2a, x(cnt+1),y(cnt+1)
+
+		//補完していない直線を描画
+		color 0,255,255
+		line x1b,y1b,x(cnt),y(cnt)
+		line x2a,y2a
+		line x(cnt+1),y(cnt+1)
+
+		//節点、制御点を描画
+		color 0,0,255
+		drawCircle x(cnt),y(cnt)
+		color 255,0,0
+		drawCircle x1b,y1b
+		drawCircle x2a,y2a
+		color 0,255,0
+		drawCircle x1c2,y1c2
+
+		//クリックされたときに点を移動する
+		getkey key,1
+		if( key ){		//左クリックで節点を移動
+			if( x0c1<mousex && mousex<=x1c2 ){
+				x(cnt)= double(mousex)
+				y(cnt)= double(mousey)
+			}else{
+				if( x1c2<mousex && mousex<=x2c3 ){
+					x(cnt+1)= double(mousex)
+					y(cnt+1)= double(mousey)
+				}
+			}
+		}
+	loop
+
+	//始点、終点を描画
+	color 0,0,255
+	drawCircle x(0),y(0)
+	drawCircle x(8),y(8)
+	drawCircle x(9),y(9)
+
+
+
+
+	redraw 1
+	wait 10
+	goto *main

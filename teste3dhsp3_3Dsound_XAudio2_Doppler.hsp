@@ -1,0 +1,218 @@
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+	dim keybuf, 256		
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+	pointmax = 100
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+
+	;file のpath 用のバッファーの作成	
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 4
+
+
+	; 音ファイルの読み込み
+	pathbuf.0 = mediadir + "\\test.wav"
+	E3DLoadSound pathbuf.0, soundid0, 0, 1, 5
+
+
+	//！！！　3Dサウンドはモノラルのみ　！！！
+	pathbuf.0 = mediadir + "\\sbounce.wav"
+	E3DLoadSound pathbuf.0, soundid1, 1, 1, 5
+
+		//ver5.3.0.3で追加
+	maxdist = 150.0
+	E3DSet3DSoundEmiDist soundid1, maxdist//音の届く距離を指定！！！！	
+
+	;日本語フォント
+	E3DCreateFont 20, 0, 400, 0, 0, 0, "ＭＳ ゴシック", fontid1
+
+	volume = 1.0
+	freq = 1.0
+	startsample = 0
+	openo = 0
+
+	counter = 0
+
+	;視点
+	camx = 0.0
+	camy = 0.0
+	camz = 0.0
+	E3DSetCameraPos camx, camy, camz
+	E3DSetCameraTarget 0, 0, 10000, 0, 1, 0
+
+
+//	E3DPlaySound soundid1, startsample, openo, 1
+//	
+
+//	E3DPlaySound soundid0, startsample, openo, 255
+	E3DPlaySound soundid1, startsample, openo, 255
+	smp = 0.0
+
+	sndx = 0.0
+	sndy = 0.0
+	sndz = 0.0
+
+	doppler = 3.0
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	gosub *KeyIn
+
+	setcnt++
+//	divnum = setcnt / 50
+//	resetcnt = setcnt - 50 * divnum
+//	if( resetcnt == 0 ){
+//		E3DPlaySound soundid1, startsample, openo, 0
+//	}
+//	gosub *Move3DSound2
+	gosub *MoveCamera
+
+	//音の多重再生と３Dサウンドを反映させるために毎フレーム呼ぶ。
+	E3DUpdateSound
+
+	
+	E3DGetSoundSamplesPlayed soundid0, smp
+
+	
+	E3DBeginScene scid1
+		gosub *DrawText
+	E3DEndScene
+		
+	E3DPresent scid1
+	waitbyfps 60, chkfps1
+	
+	goto *main
+
+*bye
+	E3DBye
+	end
+
+*Move3DSound
+
+	E3DSet3DSoundListenerMovement -1
+	
+	counter++
+
+	E3DSin counter, posx
+	posx *= 5.0
+	posy = 0.0
+	E3DCos counter, posz
+	posz = posz * 5.0
+	
+	E3DSin counter + 3, vx
+	vx *= 5.0
+	vy = 0.0
+	E3DCos counter + 3, vz
+	vz *= 5.0
+
+	E3DSet3DSoundMovement soundid1, posx, posy, posz, vx, vy, vz
+
+	return
+
+*Move3DSound2
+
+	E3DSet3DSoundListenerMovement -1
+	
+	counter++
+
+	E3DSin (counter / 5), tmpz
+	tmpz = ( tmpz + 1.0 ) * 0.25 * maxdist
+
+	vx = 0.0
+	vy = 0.0
+	vz = tmpz - sndz
+
+	sndz = tmpz
+
+	E3DSet3DSoundMovement soundid1, sndx, sndy, sndz, vx, vy, vz
+
+	return
+
+*MoveCamera
+
+	counter++
+
+	E3DSin (counter / 5), tmpz
+	tmpz = ( tmpz + 1.0 ) * 0.25 * maxdist
+
+	camz = tmpz
+
+	E3DSetCameraPos camx, camy, camz
+	E3DSet3DSoundListenerMovement -1
+
+	return
+	
+*KeyIn
+	; 音量の変更
+	dpflag = 0
+	if ( keybuf.'1' == 1 ) {
+		doppler += 2.0
+		dpflag = 1
+	}
+	if ( keybuf.'2' == 1 ) {
+		doppler -= 2.0
+		if( doppler < 0.0 ){
+			doppler = 0.0
+		}
+		dpflag = 1
+	}
+	if dpflag == 1 : E3DSet3DSoundDopplerScaler soundid1, doppler
+
+
+	return
+
+*DrawText
+
+	textr = 0 : textg = 255 : textb = 0
+	textscale = 1
+
+	sdim strj, 1024
+
+	textposx = 10 : textposy = 40
+	strj = "3Dサウンドを体感するには、２つ以上のスピーカーが必要です。\nヘッドフォンでもＯＫです。"
+	E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strj, 255, 255, 255, 255
+
+	textposy += 50
+	strchk1 = "chkFPS1   " + chkfps1
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk1
+
+	textposy += 20
+	strchk6 = "samples " + smp
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk6
+
+	textposy += 20
+	strchk6 = "sndx " + sndx + "  sndy " + sndy + "  sndz " + sndz
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk6
+
+	E3DGet3DSoundDopplerScaler soundid1, tmpdp
+	textposy += 20
+	strchk6 = "doppler " + tmpdp
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk6
+
+
+	return
+

@@ -1,0 +1,60 @@
+
+;	e3dhsp.dll test script
+
+
+  #include "e3dhsp3.as"
+
+  screen 0,640,480
+  title "初めてのEasy3D"
+  //Easy3Dを初期化。(Direct3Dの初期化)
+  E3DInit 0,-1,0,32,,SCId_0
+
+  //モデルデータ表示
+  Path = dir_cur + "\\Media\\bbs_bone1_red2.sig"
+  E3DSigLoad path,hsid_0
+  E3DSetPos hsid_0,0.0,0.0,0.0
+
+  //カメラの位置セット
+  camX=0.0
+  camY=0.0
+  camZ=-2000.0
+  E3DSetCameraPos camX,camY,camZ
+
+  //カメラのターゲット
+  E3DSetCameraTarget 0.0,0.0,0.0,0.0,0.0,0.0
+
+  //プロジェクション設定
+  E3DSetProjection 100.0,30000.0,60.0
+
+
+  //光源を作成
+  E3DCreateLight LightId_0
+
+  //平行光源のセット
+  E3DSetDirectionalLight LightId_0,0.0,0.0,1.0,255,255,255
+
+  mes "読み込み完了"
+  camXX=0.0
+  camYY=0.0
+  camZZ=0.0
+
+  camX=0.0
+  camY=0.0
+  camZ=-2000.0
+  *main
+  stick KY,15
+
+  if KY=1 :E3DCameraDirLeft 30.0
+  if KY=2 :E3DCameraPosForward 30.0
+  if KY=4 :E3DCameraDirRight 30.0
+  if KY=8 :E3DCameraPosForward -30.0
+
+  E3DBeginScene scid_0
+   E3DChkInView scid_0,hsid_0
+   E3DRender scid_0,hsid_0,0,0
+   E3DRender scid_0,hsid_0,1,0,0,0,0,1
+  E3DEndScene
+  E3DPresent scid_0
+  E3DWaitbyFPS 60,FPS_0
+  await 0
+  goto*main

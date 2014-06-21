@@ -1,0 +1,209 @@
+RokDeBone2 Camera File ver1002 type0
+#AnimInfo Start
+	name "my1"
+	frameleng 700
+	animtype "ROUND"
+	animstep 1
+	motjump 0
+#AnimInfo End
+#Camera0 Start
+	keynum 5
+	#CameraKey Start
+		frameno 0
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos -5882.123047, 5427.371582, 707.329102
+		target -5881.868164, 5424.984375, 717.036682
+		up 0.000000, 1.000000, 0.000000
+		dist 10.000042
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 71
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos -5882.123047, 5427.371582, 707.329102
+		target -5881.868164, 5424.984375, 717.036682
+		up 0.000000, 1.000000, 0.000000
+		dist 10.000042
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 180
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 2009.651978, 5542.179688, 528.355774
+		target 2009.906860, 5539.792480, 538.063354
+		up 0.000000, 1.000000, 0.000000
+		dist 10.000042
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 541
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 2009.651978, 5542.179688, 528.355774
+		target 2009.906860, 5539.792480, 538.063354
+		up 0.000000, 1.000000, 0.000000
+		dist 10.000042
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 641
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos -5968.505859, 5596.207031, 751.116211
+		target -5968.250977, 5593.819824, 760.823792
+		up 0.000000, 1.000000, 0.000000
+		dist 10.000042
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+#Camera0 End
+#Camera1 Start
+	keynum 6
+	#CameraKey Start
+		frameno 0
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos -2312.631348, 8988.962891, 4220.742188
+		target -2906.957764, 3330.354980, 15000.201172
+		up 0.000000, 1.000000, 0.000000
+		dist 12188.921875
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 180
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 2009.651978, 5542.179688, 528.355774
+		target 2009.906860, 5539.792480, 538.063354
+		up 0.000000, 1.000000, 0.000000
+		dist 10.000042
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 240
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 2111.694336, 7686.525391, 5003.768555
+		target 2878.277344, 4055.166504, 14563.937500
+		up 0.000000, 1.000000, 0.000000
+		dist 10255.303711
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 373
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 10710.136719, 6054.402344, 20875.519531
+		target 2878.277344, 4055.166504, 14563.937500
+		up 0.000000, 1.000000, 0.000000
+		dist 10255.292969
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 494
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 2111.694336, 7686.525391, 5003.768555
+		target 2878.277344, 4055.166504, 14563.937500
+		up 0.000000, 1.000000, 0.000000
+		dist 10255.303711
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 541
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 2009.651978, 5542.179688, 528.355774
+		target 2009.906860, 5539.792480, 538.063354
+		up 0.000000, 1.000000, 0.000000
+		dist 10.000042
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+#Camera1 End
+#Camera2 Start
+	keynum 0
+#Camera2 End
+#CameraSwitch Start
+	keynum 3
+	#SwitchKey Start
+		frameno 0
+		camerano 0
+	#SwitchKey End
+	#SwitchKey Start
+		frameno 180
+		camerano 1
+	#SwitchKey End
+	#SwitchKey Start
+		frameno 541
+		camerano 0
+	#SwitchKey End
+#CameraSwitch End
+#EndOfFile

@@ -1,0 +1,117 @@
+RokDeBone2 Camera File ver1001 type0
+#AnimInfo Start
+	name "cameraanim_1"
+	frameleng 60
+	animtype "CLAMP"
+	animstep 1
+	motjump 0
+#AnimInfo End
+#Camera0 Start
+	keynum 2
+	#CameraKey Start
+		frameno 0
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 0.000000, 750.000000, -2900.000000
+		target 0.000000, 750.000000, 0.000000
+		up 0.000000, 1.000000, 0.000000
+		dist 2900.000000
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 30
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 0.000000, 750.000000, -2900.000000
+		target 2000.000000, 750.000000, 0.000000
+		up 0.000000, 1.000000, 0.000000
+		dist 3522.782959
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+	#CameraKey End
+#Camera0 End
+#Camera1 Start
+	keynum 2
+	#CameraKey Start
+		frameno 25
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 0.000000, 750.000000, -2900.000000
+		target 0.000000, 750.000000, 0.000000
+		up 0.000000, 1.000000, 0.000000
+		dist 2900.000000
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 59
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 2000.000000, 750.000000, -2900.000000
+		target 2000.000000, 750.000000, 0.000000
+		up 0.000000, 1.000000, 0.000000
+		dist 2900.000000
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+	#CameraKey End
+#Camera1 End
+#Camera2 Start
+	keynum 2
+	#CameraKey Start
+		frameno 37
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 0.000000, 750.000000, -2900.000000
+		target 0.000000, 750.000000, 0.000000
+		up 0.000000, 1.000000, 0.000000
+		dist 2900.000000
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+	#CameraKey End
+	#CameraKey Start
+		frameno 59
+		interp "LINEAR"
+		looktype "NORMAL"
+		pos 0.000000, 1500.000000, -2900.000000
+		target 0.000000, 1500.000000, 0.000000
+		up 0.000000, 1.000000, 0.000000
+		dist 2900.000000
+		hsid -1
+		boneno -1
+		nearz 100.000000
+		farz 40000.000000
+		fov 45.000000
+	#CameraKey End
+#Camera2 End
+#CameraSwitch Start
+	keynum 3
+	#SwitchKey Start
+		frameno 0
+		camerano 0
+	#SwitchKey End
+	#SwitchKey Start
+		frameno 28
+		camerano 1
+	#SwitchKey End
+	#SwitchKey Start
+		frameno 40
+		camerano 2
+	#SwitchKey End
+#CameraSwitch End
+#EndOfFile

@@ -1,0 +1,254 @@
+// カメラアニメをキャラクターの位置、向きから開始するためのサンプル
+// 原理についてはマニュアルのe3d_CameraOffset.htmをご覧ください。
+
+//矢印キーでキャラクターの移動と回転
+//Z＋左右キーでカメラ回転
+//X+左右キーでカメラ平行移動
+
+//１キーでカメラがキャラクターの位置に移動し、アニメが再生される。
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+
+#define CAMERA_NORMAL	0
+#define CAMERA_SETUP	1
+#define CAMERA_ANIM		2
+
+#define SETUPTIME		100
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media\\my"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//猫データ読み込み
+	pathbuf.0 = mediadir + "\\my.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	posx1 = 0.0
+	posy1 = 0.0
+	posz1 = 0.0
+	E3DSetPos hsid1, posx1, posy1, posz1
+
+//モーションの読み込み
+	pathbuf.0 = mediadir + "\\アイドル正面.qua"
+	E3DAddMotion hsid1, pathbuf.0, motid1, framemax1
+	E3DSetMotionKind hsid1, motid1 	
+
+
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	//クォータニオン
+	E3DCreateQ charaq
+	E3DCreateQ invcharaq
+	E3DCreateQ cameraq
+	E3DInitQ charaq
+	E3DInitQ invcharaq
+	E3DInitQ cameraq
+
+	//CameraOffset
+	ddim camoffbef, 3
+	ddim camoffaft, 3
+	camoffbef(0) = 0.0
+	camoffbef(1) = 0.0
+	camoffbef(2) = 0.0
+	camoffaft(0) = 0.0
+	camoffaft(1) = 0.0
+	camoffaft(2) = 0.0
+	E3DSetCameraOffset camoffbef, cameraq, camoffaft
+
+	//CameraAnim
+	pathbuf.0 = mediadir + "\\dirZ2.cam"
+	E3DLoadCameraFile pathbuf.0, camanim0
+
+	pathbuf.0 = mediadir + "\\movetest2.cam"
+	E3DLoadCameraFile pathbuf.0, camanim1
+
+	E3DSetCameraAnimNo camanim0
+
+	camerastate = CAMERA_NORMAL
+	cameraframe = 0
+	
+	chkfps1 = 0
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	gosub *MoveChara
+	gosub *MoveCamera
+
+	E3DBeginScene scid1
+		E3DChkInView scid1, hsid1
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid1, 0, frameno1, 0
+
+		;半透明部分の描画をする
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+
+
+		gosub *DrawText
+		
+	E3DEndScene
+	E3DPresent scid1
+	
+	waitbyfps 60, chkfps1
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	textposx = 10 : textposy = 80
+	strchk3 = "chkfps1 " + chkfps1
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+
+	textposy += 20
+	if( camerastate == CAMERA_NORMAL ){
+		strchk3 = "camerastate : CAMERA_NORMAL"
+	}
+	if( camerastate == CAMERA_SETUP ){
+		strchk3 = "camerastate : CAMERA_SETUP"
+	}
+	if( camerastate == CAMERA_ANIM ){
+		strchk3 = "camerastate : CAMERA_ANIM"
+	}
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+
+	textposy += 20
+	strchk3 = "posx1 " + posx1 + "  posy1 " + posy1 + "  posz1 " + posz1
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+	
+	return
+
+*MoveChara
+	if( (keybuf( 'X' ) == 0) && (keybuf( 'Z' ) == 0) ){
+		if( keybuf( VK_LEFT ) != 0 ){
+			E3DRotateQY charaq, 2.0
+			E3DSetDirQ2 hsid1, charaq
+		}
+		if( keybuf( VK_RIGHT ) != 0 ){
+			E3DRotateQY charaq, -2.0
+			E3DSetDirQ2 hsid1, charaq
+		}
+		if( keybuf( VK_UP ) != 0 ){
+			E3DPosForward hsid1, 50.0
+		}
+		if( keybuf( VK_DOWN ) != 0 ){
+			E3DPosForward hsid1, -50.0
+		}
+	}
+	E3DSetNewPose hsid1, frameno1
+
+	E3DGetPos hsid1, posx1, posy1, posz1
+
+	return
+
+*MoveCamera
+	if( camerastate == CAMERA_NORMAL ){
+		if( (keybuf( 'Z' ) != 0) && (keybuf( VK_LEFT ) != 0) ){
+			E3DRotateQY cameraq, 2.0
+		}
+		if( (keybuf( 'Z' ) != 0) && (keybuf( VK_RIGHT ) != 0) ){
+			E3DRotateQY cameraq, -2.0
+		}
+		if( (keybuf( 'X' ) != 0) && (keybuf( VK_LEFT ) != 0) ){
+			camoffaft(0) += 10.0
+		}
+		if( (keybuf( 'X' ) != 0) && (keybuf( VK_RIGHT ) != 0) ){
+			camoffaft(0) -= 10.0
+		}
+		if( keybuf( '1' ) == 1 ){
+			camerastate = CAMERA_SETUP
+			cameraframe = 0
+		}
+	}
+	if( camerastate == CAMERA_SETUP ){
+		if( cameraframe == 0 ){
+			E3DInvQ charaq, invcharaq
+
+			aftdiffx = ((posx - posx) - camoffaft(0)) / SETUPTIME
+			aftdiffy = ((posy - posy) - camoffaft(1)) / SETUPTIME
+			aftdiffz = ((posz - posz) - camoffaft(2)) / SETUPTIME
+		}
+		camoffbef(0) = -posx1
+		camoffbef(1) = -posy1
+		camoffbef(2) = -posz1
+
+		camoffaft(0) += aftdiffx
+		camoffaft(1) += aftdiffy
+		camoffaft(2) += aftdiffz
+
+		t = 1.0 / SETUPTIME * cameraframe
+		E3DSlerpQ cameraq, invcharaq, t, cameraq	
+		cameraframe++
+
+		if( cameraframe >= SETUPTIME ){
+			camerastate = CAMERA_ANIM
+			cameraframe = 0
+			E3DSetCameraAnimNo camanim1
+		}
+		
+	}
+	if( camerastate == CAMERA_ANIM ){
+
+		cameraframe++
+
+		if( cameraframe >= 240 ){
+			camerastate = CAMERA_NORMAL
+			cameraframe = 0
+			E3DSetCameraAnimNo camanim0
+		}
+	}
+
+	E3DSetCameraOffset camoffbef, cameraq, camoffaft
+	E3DSetNewCamera -1
+
+	return

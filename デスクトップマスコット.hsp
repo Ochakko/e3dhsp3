@@ -1,0 +1,139 @@
+   // 不定形リージョンウィンドウ作成
+    // CreatePolyPolygonRgn使用
+    // 通常のpget & CreateRectRgnに比べてかなり高速
+    
+    // ただし、Windows9x系統では正常に動かない可能性あり
+ 
+    // ＊ぼやき＊
+    // 恐らく一番早いのはExtCreateRectRgn。。。
+    // けど、引数の内容が面倒なのでこれで妥協
+    // ちなみにテスト画像は600x690（でか）
+    // 普通の画像ならかなり早くなるはず
+
+    // 必要なものをインクルード
+   ; picload "1.bmp"
+    #include "user32.as"
+    #include "gdi32.as"
+    #include "winmm.as"    // これはリージョン作成に直接関係無し
+ 
+    // ウィンドウ移動制御用の定数
+    #define global WM_NCLBUTTONDOWN     $000000A1
+    #define global HTCAPTION            2
+ 
+    // リージョン作成用の定数
+    #define global WINDING              2
+ 
+    // モジュール記述
+    #module
+ 
+    // CreateWindowRgn p1(targetWin), p2(baseWin)
+    // targetWin : 不定形リージョンを適用するウィンドウID
+    // baseWin   : 不定形リージョンを作成する絵があるウィンドウID
+    #deffunc CreateWindowRgn int targetWin, int baseWin
+ 
+    gsel baseWin
+ 
+    mref vram, 66        // 画像データを取得
+    dim pt, 100000        // 点データ用配列
+    dim ct, 100000        // 多角形点数記憶用配列
+    
+    wx = ginfo_winx : wy = ginfo_winy    // 画像サイズ取得
+    
+    pget 0, 0            // 透明色の取得（点（０，０）の色を透明色にする）
+    tr = ginfo_r : tg = ginfo_g : tb = ginfo_b
+ 
+    // 変数初期化
+    // 注：yはデータ構造上、下から
+    x = 0 : y = wy : flg = 0 : count = 0 : pt_cnt = 0 : poly_cnt = 0
+    repeat wy
+        repeat wx
+            // 画像データの構造にそってRGB値を取得
+            b = peek(vram,count)
+            count++
+            g = peek(vram,count)
+            count++
+            r = peek(vram,count)
+            count++
+ 
+            // 透明色と比較
+            // 内部は説明面倒なので省略。やってることはIIと変わらない。
+            if (wx == x + 1) | ((r == tr) && (g == tg) && (b == tb)) {
+                if flg == 1 {
+                    pt(pt_cnt) = x, y-1, x, y
+                    pt_cnt += 4
+                    ct(poly_cnt) = 4
+                    poly_cnt++ : flg = 0
+                }
+            } else {
+                if flg == 0 {
+                    pt(pt_cnt) = x, y, x, y-1
+                    pt_cnt += 4
+                    flg = 1
+                }
+            }
+            x++
+        loop
+        x = 0
+        y--
+    loop
+ 
+    // 取得した情報からリージョン作成（詳細はMSDNやその他サイト参照）
+    CreatePolyPolygonRgn varptr(pt), varptr(ct), poly_cnt, WINDING
+    tmpRgn = stat
+    
+    gsel targetWin            // ターゲットウィンドウをアクティブに
+    SetWindowRgn hwnd, tmpRgn, 1    // リージョン設定
+    DeleteObject tmpRgn        // 後片付け
+    
+    return
+    
+    #global 
+      // 以下動作確認プログラム
+    // 以下説明省略
+    gosub *me_time
+    
+    title "Now Loading..."
+    buffer 2
+    picload "desk1.bmp"
+ 
+ 	gsel 0,-1;不要なウィンドウを消す
+    wx = ginfo_winx : wy = ginfo_winy
+ 	soreenposx = ginfo_dispx / 2
+	soreenposy = ginfo_dispy / 2
+    bgscr 3, wx, wy,0,soreenposx,soreenposy
+    gsel 3, -1
+ 	
+    timeGetTime
+    st = stat
+ 
+    CreateWindowRgn 3, 2
+ 
+    timeGetTime
+    et = stat
+    
+    gsel 0
+    title "Start... Time is " + (et - st)
+    gsel 3, 1
+    
+    gcopy 2, 0, 0, wx, wy
+ 
+    redraw 0
+ 
+    onclick *winmove
+  
+    stop
+    
+ *me_time
+    timeBeginPeriod 1
+    timeEndPeriod 1
+    return
+ 
+    // ウィンドウ移動制御
+ *winmove
+    if iparam == 3 : end
+    if iparam : stop
+    if ginfo_act != 3 : stop
+ 
+    DefWindowProc hwnd,WM_NCLBUTTONDOWN,HTCAPTION,0
+    MoveWindow hwnd, ginfo_wx1, ginfo_wy1, ginfo_sizex, ginfo_sizey, 1
+ 

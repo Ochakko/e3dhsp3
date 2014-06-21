@@ -1,0 +1,44 @@
+title "十字キーでカメラ移動"
+#include "e3dhsp3.as"
+#module
+#deffunc waitbyfps int p1, var fps
+E3DWaitbyFPS@ p1, fps
+await 0
+return
+#global
+E3DInit 0, -1, 0, 16, 0, scid1
+;ライト
+lightdirx1 = 0.0 : lightdiry1 = 0.0 : lightdirz1 = 1.0
+lightr1 = 255 : lightg1 = 255 : lightb1 = 255
+;ライン
+ddim linep, 2, 3
+; 点１座標 : ２座標
+linep(0,0) = 0f : linep(1,0) = 0f
+linep(0,1) = 0f : linep(1,1) = 5000f
+linep(0,2) = 0f : linep(1,2) = 0f
+E3DCreateLine linep,2, 10, 2, id
+E3DSetLineColor id, 255, 0,255,0
+
+; hsid情報
+dim array,10 : array = id
+*main
+; 描画方法１　カメラを動かすとちゃんと線も動く
+//E3DBeginScene scid1
+//E3DRender scid1, id
+//E3DEndScene
+//E3DPresent scid1
+
+
+; 描画方法２　カメラを動かしても線が動かない
+E3DRenderBatch scid1, array, 1
+E3DPresent scid1
+
+stick c,15; カメラ移動
+if c & 1 : E3DCameraShiftLeft -30
+if c & 4 : E3DCameraShiftRight -30
+if c & 2 : E3DCameraPosForward 30
+if c & 8 : E3DCameraPosForward -30
+waitbyfps 60, chkfps1
+goto *main
+
+

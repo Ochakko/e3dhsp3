@@ -1,0 +1,146 @@
+//E3DHSP3サンプル
+//デスクトップにブルマ戦士を表示します。
+//ブルマ戦士をクリックしてEscキーで終了します。
+//Zキーでモーションが変化します。
+
+//このサンプルは魔女オイラさんが考案しました。
+
+#module
+
+#uselib "gdi32.dll"
+#func CreateDC "CreateDCA" sptr,sptr,sptr,int
+#func DeleteDC "DeleteDC"  int
+#func BitBlt "BitBlt" int,int,int,int,int,int,int,int,int
+
+#deffunc DesktopCapture int xbegin, int ybegin, int xsize, int ysize
+	;デスクトップを取得して、現在の描画先ウインドウに描画。
+
+	; デスクトップ画面のデバイスコンテキスト
+	CreateDC "DISPLAY", 0, 0, 0
+	hdcScreen = stat
+
+	; デスクトップ画面の画像をコピー
+	BitBlt hdc, 0, 0, xsize, ysize, hdcScreen, xbegin, ybegin, $CC0020
+
+	; デバイスコンテキスト削除
+	DeleteDC hdcScreen
+
+	return
+
+#global
+
+
+
+;サンプルスクリプト
+
+;この下の行は、他のファイルからこのスクリプトを使う場合は必要です。
+;#include "DesktopCapture.as"
+x=ginfo_dispx-700:y=ginfo_dispy-200
+screen 0, 200, 200,100, x, y
+
+gsel 0
+
+DesktopCapture ginfo_dispx-200, ginfo_dispy-230,ginfo_dispx, ginfo_dispy;デスクトップをキャプチャ
+
+redraw 1	;この命令をしないと反映されません。
+			;buffer命令で初期化したウインドウの場合は
+			;もちろん不要です。
+await 1
+
+bmpsave "Media\\File\\F1.bmp"
+
+
+#include "e3dhsp3.as"
+
+	dim keybuf, 256	
+	
+	;スクリーンのサイズ
+	screenw = 200 : screenh = 200
+	;スクリーンの位置
+	screenx = ginfo_dispx-200 : screeny =ginfo_dispy-230
+	bgscr 0, screenw, screenh, 0, ginfo_dispx-200, ginfo_dispy-230
+	
+	;ウィンドウのタイトル
+	title "sample"
+	;デバック情報をdbg.txtに出力
+	E3DEnableDbgFile
+	;初期化
+	E3DInit 0, -1, 0, 16, 0, scid1
+	
+	;フォントの作成
+	E3DCreateFont 20, 10, 800, 0, 0, 0, "ＭＳ ゴシック",  fontid1
+
+
+	;ライトIDの取得
+	E3DCreateLight lid1
+	;ライトの作成
+	lightdirx1 = 0.1 : lightdiry1 = -0.1 : lightdirz1 = 0.1
+	
+	lightr1 = 255 : lightg1 = 255 : lightb1 = 200
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+	
+	;プロフェッションの作成
+	proj_near = 800.0 : proj_far = 100000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+	
+
+
+	;主人公キャラデータ読み込み
+	pathbuf = dir_cur + "\\Media\\my\\my.sig"
+	E3DSigLoad pathbuf, hsid1,0,2
+	
+	pathbuf = dir_cur + "\\Media\\my\\furi.moa"
+	E3DLoadMoaFile hsid1, pathbuf, 10, 1.0
+	
+	;背景データの読み込み
+	E3DCreateBG scid1, dir_cur + "\\Media\\File\\F1.bmp", "n", 0, 0, 0, 0
+
+	stag = 1;移動マップを指定
+
+	
+*main
+	
+	E3DGetKeyboardCnt keybuf
+	if keybuf( VK_ESCAPE ) != 0 : goto *bye ; [ESC]で終了
+	eventno = 0
+	
+	if( keybuf( 'Z' ) == 1 ){
+		eventno = 1
+	}
+	E3DSetNewPoseByMOA hsid1, eventno	
+	
+	gosub *MoveCamera
+
+	;視野内にあるかどうかを、判定します
+	E3DChkInView scid1, hsid1
+	
+
+	E3DBeginScene scid1
+		;不透明モデルの表示
+		E3DRender scid1, hsid1, 0
+		;半透明モデルの表示
+		E3DRender scid1, hsid1, 1, , , , , 1
+	E3DEndScene
+	E3DPresent scid1
+	
+	await 0
+	E3DWaitbyFPS 30, chkfps1
+
+	goto *main
+
+*bye
+	;ゲームを終了します
+	E3DBye
+	end
+	
+*MoveCamera	
+	E3DGetPos hsid1, saveposx, saveposy, saveposz
+	
+	backposx = saveposx
+	backposy = saveposy + 1500
+	backposz = saveposz - 3000
+	;カメラの位置を設定
+	E3DSetCameraPos backposx, backposy , backposz
+	;カメラの注視点を設定
+	E3DSetCameraTarget saveposx, saveposy+1500 , saveposz, 0.0, 1.0, 0.0
+	return

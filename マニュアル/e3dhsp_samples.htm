@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=SHIFT_JIS">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 9.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<P><B><FONT size="+2">Easy3D For HSP のサンプルの紹介</FONT></B></P>
+<P><BR>
+</P>
+<P><FONT size="+2"><B>e3dhsp_fight.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_fight.jpg" width="417" height="326" border="0"><BR>
+<BR>
+格ゲーちっくなサンプルです。<BR>
+モーションブラーでキックする猫姉と、防御する猫妹の図です。<BR>
+<BR>
+操作の仕方（キーと動作の対応を）を表にしました。<BR>
+</P>
+<TABLE border="1" width="451">
+  <TBODY>
+    <TR>
+      <TD width="109">プレイヤー２</TD>
+      <TD width="110">プレイヤー１</TD>
+      <TD width="210">動作</TD>
+    </TR>
+    <TR>
+      <TD width="109">Wキー</TD>
+      <TD width="110">矢印上キー</TD>
+      <TD width="210">前進</TD>
+    </TR>
+    <TR>
+      <TD width="109">Zキー</TD>
+      <TD width="110">矢印下キー</TD>
+      <TD width="210">後退</TD>
+    </TR>
+    <TR>
+      <TD width="109">Aキー</TD>
+      <TD width="110">矢印左キー</TD>
+      <TD width="210">左回転</TD>
+    </TR>
+    <TR>
+      <TD width="109">Sキー</TD>
+      <TD width="110">矢印右キー</TD>
+      <TD width="210">右回転</TD>
+    </TR>
+    <TR>
+      <TD width="109">Xキー</TD>
+      <TD width="110">Bキー</TD>
+      <TD width="210">猫パンチ</TD>
+    </TR>
+    <TR>
+      <TD width="109">Cキー</TD>
+      <TD width="110">Nキー</TD>
+      <TD width="210">キック</TD>
+    </TR>
+    <TR>
+      <TD width="109">Vキー</TD>
+      <TD width="110">Mキー</TD>
+      <TD width="210">防御</TD>
+    </TR>
+    <TR>
+      <TD width="109">X＋Cキー</TD>
+      <TD width="110">B＋Nキー</TD>
+      <TD width="210">半透明アクション</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_ground.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_ground.jpg" width="418" height="325" border="0"><BR>
+<BR>
+広いフィールドを動き回るためのサンプルです。<BR>
+28800ポリゴンのフィールドを、地面の高低に合わせて、移動することが出来ます。<BR>
+地面は、４つのデータをつなぎ合わせたもので、ちょっと、つなぎ目が、粗いですが、<BR>
+サンプルと言うことで、ご勘弁を。。<BR>
+<A href="e3dhsp_ground.htm">地面データは、ＢＭＰファイルから、作成可能です。</A><BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_autorun.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_autorun.jpg" width="417" height="328" border="0"><BR>
+<BR>
+キャラクターを自動走行させるためのサンプルです。<BR>
+ナビラインという、走行の目印になるデータを、<A href="gviewer.htm">GViewer.exe</A>で作成し、<BR>
+パラメータを変えて、制御関数を呼び出すことで、<BR>
+さまざまな走行パターンを得ることが出来ます。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_alpha.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_alpha.jpg" width="417" height="326" border="0"><BR>
+<BR>
+半透明処理を強化した際に、作ったサンプルです。<BR>
+手前の猫妹の透明度が、徐々に変化し、<BR>
+遠くの猫姉が、ブレンドされて見えます。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_sound.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_sound.jpg" width="417" height="327" border="0"><BR>
+<BR>
+音の再生サンプルです。<BR>
+DirectMusicを使用して、ＢＧＭと効果音を同時に鳴らすことが出来ます。<BR>
+テンポや、ボリュームを変えることが出来ます。<BR>
+<BR>
+</P>
+<P><B><FONT size="+2">e3dhsp_wall.as</FONT></B><BR>
+<IMG src="jpegfiles/e3dhspsmp_wall.jpg" width="418" height="326" border="0"><BR>
+<BR>
+キャラクターを道の上だけ移動させるためのサンプルです。<BR>
+道とそうでないところの境目部分で、あたり判定が発生するようになっています。<BR>
+境目にぶつかった場合は、徐々にキャラクターの向きを修正し、<BR>
+継続して移動できるようになっています。<BR>
+道との境目部分のデータは、ＢＭＰファイルから、作成可能です。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_vertpos.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_vertpos.jpg" width="418" height="326" border="0"><BR>
+<BR>
+頂点座標を、キー入力に応じて、プログラムから、移動させるサンプルです。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_screenpos.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_screenpos.jpg" width="418" height="328" border="0"><BR>
+<BR>
+3Dオブジェクトの、スクリーン座標（画面上での２Ｄ座標）を取得するサンプルです。<BR>
+３Ｄキャラクターの位置に、２Ｄスプライトを表示するのに、役に立ちます。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_motionpoint.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_motionpoint.jpg" width="418" height="327" border="0"><BR>
+<BR>
+キー入力に応じて、プログラムで、ボーン変形するサンプルです。<BR>
+各ボーンの回転と移動を制御できます。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_fillupmotion.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_fillupmotion.jpg" width="418" height="325" border="0"><BR>
+<BR>
+モーションをリアルタイムで補間して、表示するプログラムです。<BR>
+モーションとモーションのつなぎ目部分で、<BR>
+リアルタイム補間計算を使用することで、<BR>
+なめらかな、モーション遷移が可能となります。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_lookatq.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_lookatq.jpg" width="417" height="326" border="0"><BR>
+<BR>
+クォータニオンに、指定した向きを向くような情報をセットするサンプルです。<BR>
+キャラクターや、ボーンを、任意の向きに、簡単に、向かせることが出来ます。<BR>
+ユーザーさんが、角度の計算をしなくても、徐々に、目標に近づくように向きを制御します。<BR>
+宙返り可能なモードもあります。<BR>
+<BR>
+<BR>
+<BR>
+<B><FONT size="+2">e3dhsp_savedisplay.as</FONT></B><BR>
+<BR>
+リアルタイム表示の画面を、ＢＭＰファイルとＡＶＩファイルに保存するためのサンプルです。<BR>
+画面は、autorunのものと同じです。<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<B><FONT size="+2">e3dhsp_CameraOnNaviline.as</FONT></B><BR>
+<IMG src="jpegfiles/e3dhspsmp_camera1.jpg" width="418" height="327" border="0"><BR>
+<BR>
+カメラ制御のためのサンプルです。<BR>
+カメラをナビラインに沿って動かしたり、<BR>
+角度の計算をすることなく、カメラを、向きたい向きに、徐々に向けることが出来ます。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_font.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_font.jpg" width="418" height="325" border="0"><BR>
+<BR>
+フォント表示のサンプルです。<BR>
+フォント名、大きさ、書体、透明度、色、などを指定して、表示できます。<BR>
+<BR>
+<BR>
+<BR>
+<B><FONT size="+2">e3dhsp_Spline.as</FONT></B><BR>
+<IMG src="jpegfiles/e3dhspsmp_spline.jpg" width="418" height="326" border="0"><BR>
+<BR>
+位置座標と、クォータニオンの、スプライン補間計算のサンプルです。<BR>
+<BR>
+位置や、姿勢をなめらかに、補間して、３Ｄオブジェクトを配置することが出来ます。<BR>
+<BR>
+<BR>
+<BR>
+<B><FONT size="+2">e3dhsp_pickvert.as</FONT></B><BR>
+<IMG src="jpegfiles/e3dhspsmp_pickvert.jpg" width="418" height="325" border="0"><BR>
+<IMG src="jpegfiles/e3dhspsmp_pickvert2.jpg" width="417" height="325" border="0"><BR>
+<BR>
+マウスでクリックした位置の頂点を検出し、<BR>
+その頂点に、色をセットするサンプルです。<BR>
+背面カリングを検出し、見えている頂点のみ、処理することが出来ます。<BR>
+<BR>
+<BR>
+機能的には、<BR>
+指定した２Ｄ座標に近い頂点を、検出する（E3DPickVert）<BR>
+頂点ごとに、色をセットする(E3DSetDiffuse, E3DSetAmbient, E3DSetSpecular)<BR>
+頂点ごとのスクリーン座標[２Ｄ座標]を取得する（E3DGetScreenPos）<BR>
+背面カリングの状況を取得する（E3DGetCullingFlag）<BR>
+を組み合わせたものです。<BR>
+<BR>
+おまけ機能として、<BR>
+FillModeを変更することも出来ます。<BR>
+2枚目の絵は、「線」で、表示したときのものです。<BR>
+線で表示したときにも、裏面の線は、表示されないようになっています。<BR>
+（表示することも出来ます）<BR>
+<BR>
+<BR>
+<BR>
+<B><FONT size="+2">e3dhsp_getjointinfo.as</FONT></B><BR>
+<IMG src="jpegfiles/e3dhspsmp_getjointinfo.jpg" width="482" height="398" border="0"><BR>
+<BR>
+ジョイントや、表示オブジェクトの情報を取得するためのサンプルです。<BR>
+<BR>
+今までは、パーツの名前など、RokDeBone2で参照するしか方法が無かったのですが、<BR>
+プログラムで、一括取得できるようになりました。<BR>
+<BR>
+名前や番号だけでなく、階層構造も取得できるようになっています。<BR>
+<BR>
+<BR>
+<BR>
+<B><FONT size="+2">e3dhsp_3Dsound.as</FONT></B><BR>
+<IMG src="jpegfiles/e3dhspsmp_3dsound.jpg" width="418" height="325" border="0"><BR>
+<BR>
+ステレオＢＧＭと、３Ｄサウンドの効果音を重ねて再生するサンプルです。<BR>
+３Ｄサウンドは、リスナーの周りを、くるくる回るように動きます。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_scrollBG.as</B></FONT><BR>
+<BR>
+背景のＵＶ座標を設定して、スクロールするサンプルです。<BR>
+<BR>
+<BR>
+<B><FONT size="+2">e3dhsp_fontWithCnt.as</FONT></B><BR>
+<BR>
+文字の表示タイミングを指定して、徐々にテキストを描画するサンプルです。<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_fullscreen.as</B></FONT><BR>
+<BR>
+フルスクリーンで描画するためのサンプルです。<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_antialias.as</B></FONT><BR>
+<BR>
+アンチエイリアスをオンにするサンプルです。<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_pickface.as</B></FONT><BR>
+<IMG src="jpegfiles/e3dhspsmp_pickface.jpg" width="416" height="325" border="0"><BR>
+<BR>
+マウスで地面をクリックすると、その場所にバナナが移動し、<BR>
+それを追いかけるように、サルが歩きます。<BR>
+<BR>
+E3DPickFaceの使用例です。<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_toolscamera.as</B></FONT><BR>
+<BR>
+ツール作成向けの、カメラワークのサンプルです。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_ikrotatebeta.as</B></FONT><BR>
+<BR>
+<IMG src="jpegfiles/e3dhspsmp_ikrotatebeta.jpg" width="417" height="326" border="0"><BR>
+<BR>
+矢印キーで動くスライムを、追いかけるように、<BR>
+多関節のアームが、ＩＫで、うねうねと動きます。<BR>
+<BR>
+目標座標を指定して、E3DIKRotateBeta関数を呼ぶだけで、<BR>
+多関節モデルを制御できます。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_GroundNormal.as</B></FONT><BR>
+<BR>
+<IMG src="jpegfiles/e3dhspsmp_groundnormal.jpg" width="417" height="326" border="0"><BR>
+<BR>
+キャラクターの上方向を、<B>徐々に</B>、地面の法線ベクトル方向に向けるためのサンプル。<BR>
+<BR>
+矢印キーで、モロ星人が動きます。<BR>
+地面の法線ベクトルにあわせて、徐々に、キャラクターの上方向を修正します。<BR>
+<BR>
+画面に、地面の法線ベクトルと、キャラクターの上方向の角度が、deg として表示されます。<BR>
+小数点を整数にする部分や、multの大きさの制限などにより、多少、誤差が生じますが、<BR>
+徐々に、角度は小さくなり、ほぼ、一致します。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_DrawLine.as</B></FONT><BR>
+<BR>
+<IMG src="jpegfiles/e3dhspsmp_drawline.jpg" width="418" height="326" border="0"><BR>
+マウスでクリックして、線を描くサンプルです。<BR>
+<BR>
+線を描きながら、左右矢印キーを押すと、分かるように、<BR>
+２Ｄの線ではなく、３Ｄの線です。<BR>
+<BR>
+E3DConvScreenTo3Dという関数で、マウスの位置に対応する３Ｄ座標を取得し、<BR>
+その位置に、線を引きます。<BR>
+E3DConvScreenTo3D関数の３番目の引数に、いつも決まった値を指定することで、<BR>
+カメラから等距離な平面上の３Ｄ座標を取得することが出来ます。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+1"><B><FONT size="+2">e3dhsp_ConfLineAndFace.as</FONT></B></FONT><BR>
+<BR>
+<IMG src="jpegfiles/e3dhspsmp_ConfLineAndFace.jpg" width="416" height="325" border="0"><BR>
+<BR>
+任意の線分と、sigモデルデータの面との当たり判定のサンプルです。<BR>
+このサンプルでは、任意の線分に、ジョイント同士を結ぶ線分を指定しています。<BR>
+この他、線分には、キャラクターの移動分の線分を指定したりすると有効だと思います。<BR>
+<BR>
+<BR>
+矢印キーを押すと、矢印の３Ｄオブジェクトが、半透明の球の周りを回ります。<BR>
+Ｚ，Ｘキーを押すと、矢印と球の距離が、変化します。<BR>
+<BR>
+矢印と球の衝突地点に、「当」のビルボードを表示します。<BR>
+<BR>
+;<BR>
+線分と面との当たり判定E3DChkConfLineAndFaceは、結構、重い処理です。<BR>
+ですので、出来るだけ、呼び出し回数を、少なくするように、心がけてください。<BR>
+呼び出し回数を少なくするための工夫として、<BR>
+まず、E3DChkConflictで、おおざっぱな当たり判定を行い、<BR>
+E3DChkConflictで、当たっていると判定されたときのみ、<BR>
+E3DChkConfLineAndFaceを、呼び出す、などの方法が、有効です。<BR>
+;<BR>
+E3DChkConfLineAndVecのrevfaceflagで、当たっている面が、裏面かどうかを取得できます。<BR>
+このサンプルでは、dispreverseに０をセットすると、<BR>
+裏面と衝突している場合には、当たりのビルボードを表示しないようにしています。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_MouseDePose.as</B></FONT><BR>
+<BR>
+<IMG src="jpegfiles/e3dhspsmp_MouseDePose.jpg" width="418" height="324" border="0"><BR>
+<BR>
+マウスで、ボーンをドラッグして、ＩＫで、ポーズを作るサンプルです。<BR>
+マウス左ボタンドラッグで、回転し、右ドラッグで、移動します。<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_TextureRaster.as</B></FONT><BR>
+<BR>
+<IMG src="jpegfiles/e3dhspsmp_TextureRaster.jpg" width="335" height="347" border="0"><BR>
+<BR>
+３Ｄ画面をテクスチャにコピーし、テクスチャをラスタースクロールして、画面一杯に表示するサンプルです。<BR>
+　　<BR>
+デフォルト状態では、リアルタイムの３Ｄ画面で、<BR>
+１キーを押すと、ラスタースクロール表示になり、<BR>
+2キーを押すと、リアルタイム３Ｄ画面に戻ります。<BR>
+<BR>
+<BR>
+<BR>
+<FONT size="+2"><B>e3dhsp_TextureChange.as</B></FONT><BR>
+<BR>
+<IMG src="jpegfiles/e3dhspsmp_TextureChange.jpg" width="418" height="327" border="0"><BR>
+<BR>
+マウスのクリックに応じて、テクスチャーを切り替えるサンプルです。<BR>
+クリックするたびに、１，２，３の数字の書かれたテクスチャーが、<BR>
+順番にセットされます。<BR>
+<BR>
+<BR>
+<B><FONT size="+2">e3dhsp_LoadByNewThread.as</FONT></B><BR>
+<BR>
+<IMG src="jpegfiles/e3dhspsmp_loadbythread.jpg" width="418" height="327" border="0"><BR>
+<BR>
+新たにスレッドを作成して、データを読み込むサンプルです。<BR>
+画面は、たこを回転表示させながら、地面のデータを読み込んでいるところです。<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+///////////////////////////////////////////////////////////<BR>
+<B><BR>
+e3dhsp_ground.asで使用されている、モロ星人のデータは、naosukeAniさんの作を加工したものです。<BR>
+モロは、版権ものです。著作権は、原作者に帰属します。<BR>
+<A href="http://w2223.nsk.ne.jp/~locke/index.htm">http://w2223.nsk.ne.jp/~locke/index.htm</A><BR>
+<BR>
+e3dhsp_autorun.asで使用されているタコデータと地面データは、Shinobuさんの作です。<BR>
+<A href="http://www.geocities.jp/shinobu710jp">http://www.geocities.jp/shinobu710jp</A><BR>
+<BR>
+e3dhsp_fillupmotion.asで使用しているモデルデータと、モーションデータは、ぼおんさんの作です。<BR>
+<A href="http://www2.odn.ne.jp/hanakabu/">http://www2.odn.ne.jp/hanakabu/</A><BR>
+</B><BR>
+<B>猫姉と猫妹の著作権は、星さんにあります。<BR>
+<A href="http://ww5.et.tiki.ne.jp/~hoshi_k/cypher/">http://ww5.et.tiki.ne.jp/~hoshi_k/cypher/</A><BR>
+</B><BR>
+<B>e3dhsp_lookatq.asで使用しているスライムは、takaさんの作です。</B><BR>
+<B><A href="http://www.geocities.co.jp/AnimeComic-White/6367/">http://www.geocities.co.jp/AnimeComic-White/6367/</A></B><BR>
+<BR>
+<BR>
+ビルボード用の木のテクスチャーは、DirectXのSDKに、あったものです。<BR>
+音楽データは、DirectXのＳＤＫに、あったものです。<BR>
+<BR>
+<BR>
+</P>
+<P><A href="e3dhsp.htm">Easy3D For HSP のトップページに戻る</A></P>
+<P><A href="index.htm">おちっこＬＡＢのトップページに戻る</A><BR>
+</P>
+</BODY>
+</HTML>

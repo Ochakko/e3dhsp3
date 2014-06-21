@@ -1,0 +1,193 @@
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+	dim keybuf, 256
+	dim savekeybuf, 256
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 800.0 : camposz = -2000.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 180.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+//暗号化は以下の２行のようにする。Ochakkoの部分は暗号化の際のキー。各自自由に決める。
+//キーを平文で記述するとばれやすいです。大事なデータの際には、ぶつぎりでセットして順番を変えて連結したりrndを混ぜたりすると
+//少しは対策になるそうです。
+//	E3DPndInit "Ochakko", pndid
+//	E3DPndEncrypt pndid, dir_cur + "\\Media\\PndTest", dir_cur + "\\Media\\PndTest1.pnd"
+	mediadir = dir_cur + "\\Media"	
+	pathbuf.0 = mediadir + "\\lake.bmp"
+	pathbuf.1 = mediadir + "\\cloud3.bmp"
+	E3DCreateBG scid1, pathbuf.0, pathbuf.1, 0.001, 0.0, 0
+
+
+	pathbuf.0 = mediadir + "\\test_course_01.mqo"
+	E3DLoadMQOFileAsGround pathbuf.0, 50.0, hsidg
+	E3DSetPos hsidg, 0.0, 0.0, 0.0	
+
+
+	E3DPndInit "Ochakko", pndid2
+	E3DPndParse pndid2, dir_cur + "\\Media\\PndTest1.pnd"
+	
+	sdim pndroot, 260
+	E3DPndGetRootPath pndid2, pndroot
+	
+	sigpath = pndroot + "\\my\\my.sig"
+	E3DPndLoadSigFile pndid2, sigpath, 1.0, hsid1
+	//E3DPndLoadSigFileAsGround pndid2, sigpath, 1.0, hsid1	
+
+	moapath = pndroot + "\\my\\my.moa"
+	E3DPndLoadMoaFile pndid2, hsid1, moapath, 5, 1.0
+	
+	
+	bgmpath = pndroot + "\\wav\\test.wav"
+	
+	E3DPndGetPropertyNum pndid2, propnum
+	repeat propnum
+		sdim tmppath, 260
+		E3DPndGetProperty pndid2, cnt, tmppath, sourcesize
+		if( tmppath == bgmpath ){
+			sdim wavbuf, sourcesize
+			E3DPndDecrypt pndid2, bgmpath, wavbuf, sourcesize, getleng
+			E3DLoadSoundFromBuf wavbuf, sourcesize, 0, 0, 1, 1, soundid
+		}
+	loop
+
+	E3DPlaySound soundid, 0, 0, 255
+
+
+	motmaxnum = 30
+	sdim motionname, 256, motmaxnum
+	dim motionid, motmaxnum
+	E3DGetMoaInfo hsid1, motmaxnum, motionname, motionid, moagetnum
+
+	E3DCreateFont 20, 0, 400, 0, 0, 0, "ＭＳ ゴシック", fontid1
+
+
+;	E3DSetMotionKind hsid1, 0
+
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	chkfps1 = 0
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	if keybuf.VK_ESCAPE != 0 : goto *bye ; [ESC]で終了
+
+	eventno = 0
+
+	if( keybuf.'1' == 1 ){
+		eventno += 1
+	}
+	if( keybuf.'2' == 1 ){
+		eventno += 2
+	}
+	if( keybuf.'3' == 1 ){
+		eventno += 4
+	}
+	if( keybuf.'4' == 1 ){
+		eventno += 8
+	}
+	if( keybuf.'5' == 1 ){
+		eventno += 16
+	}
+	if( keybuf.'6' == 1 ){
+		eventno += 32
+	}
+	if( keybuf.'7' == 1 ){
+		eventno += 64
+	}
+	
+
+	E3DSetNewPoseByMOA hsid1, eventno
+
+	E3DGetMotionFrameNo hsid1, curmk, curframe
+
+	E3DGetNextMotionFrameNo hsid1, curmk, nextmk, nextframe
+
+
+	E3DBeginScene scid1
+		E3DChkInView scid1, hsid1
+		E3DChkInView scid1, hsidg
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid1, 0, frameno1, 0
+		E3DRender scid1, hsidg, 0, 0, 0
+
+		;半透明部分の描画をする
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+		E3DRender scid1, hsid1, 1, framenog, 0, 0, 0, 1
+
+		gosub *DrawText
+		
+	E3DEndScene
+	E3DPresent scid1
+	
+	waitbyfps 30, chkfps1
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	sdim strchk0, 1024
+
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+	textposx = 10 : textposy = 0
+	strchk0 = "motionID " + curmk + " frameNo " + curframe
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk0
+
+
+	textposy += 20
+	strchk0 = "moagetnum " + moagetnum
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk0
+	repeat moagetnum
+		textposy += 20
+		strchk0 = "motionname " + motionname.cnt + "  motionid " + motionid.cnt
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+	loop
+
+	textposy += 40
+	strchk0 = "nextmk " + nextmk + "  nextframe " + nextframe
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk0
+	
+	return
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="e3dhsp">
+</Property><Property Name="ソリューション ファイル" Value="E:\pgfile9\e3dhsp3\e3dhsp.sln">
+</Property><Property Name="ユーザー オプション ファイル" Value="E:\pgfile9\e3dhsp3\e3dhsp.suo">
+</Property><Property Name="Date" Value="2009年11月4日">
+</Property><Property Name="Time" Value="12:10">
+</Property><Property Name="ログ番号" Value="2">
+</Property></Properties><Event ErrorLevel="2" Project="" Source="e3dhsp.sln" Description="バックアップ ファイル E:\pgfile9\e3dhsp3\e3dhsp.sln.old の作成中にエラーが発生しました">
+</Event><Event ErrorLevel="2" Project="" Source="e3dhsp.suo" Description="バックアップ ファイル E:\pgfile9\e3dhsp3\e3dhsp.suo.old の作成中にエラーが発生しました">
+</Event><Event ErrorLevel="0" Project="e3dhsp" Source="e3dhsp.vcproj" Description="ローカルの IIS サーバーへの Web 配置はサポートされなくなりました。Web 配置ビルド ツールはプロジェクト設定から削除されました。">
+</Event><Event ErrorLevel="1" Project="e3dhsp" Source="e3dhsp.vcproj" Description="このアプリケーションは、Windows Vista のユーザー アカウント制御 (UAC) 機能に関連する設定を含むように更新されました。既定で、UAC を有効にして Windows Vista 上でアプリケーションを実行すると、起動したプロセスと同じ特権で実行するようにマークされます。このマークによって、アプリケーションの仮想化による実行も無効になります。プロジェクトのプロパティ ページから UAC 関連の設定を変更できます。">
+</Event><Event ErrorLevel="0" Project="e3dhsp" Source="e3dhsp.vcproj" Description="プロジェクト ファイルは正常に 'E:\pgfile9\e3dhsp3\e3dhsp.vcproj.8.00.old' としてバックアップされました。">
+</Event><Event ErrorLevel="0" Project="e3dhsp" Source="e3dhsp.vcproj" Description="プロジェクトは正常にアップグレードされました。">
+</Event><Event ErrorLevel="3" Project="e3dhsp" Source="e3dhsp.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="e3dhsp.sln" Description="ソリューションは正常に変換されました">
+</Event><Event ErrorLevel="3" Project="" Source="e3dhsp.sln" Description="Converted">
+</Event></UpgradeLog>

@@ -1,0 +1,34 @@
+
+//３Ｄモデルに、ひとつだけモーションを読み込み、再生するサンプルです。
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+#module
+#deffunc waitbyfps int p1, var fps
+E3DWaitbyFPS@ p1, fps
+await 0
+return
+#global
+dim keybuf, 256
+E3DInit 0, -1, 0, 16, 0, scid1 
+
+E3DSigLoad dir_cur + "\\media\\bbs_bone1_red2.sig", hsid1 ; モデルとモーションロード
+E3DAddMotion hsid1, dir_cur + "\\media\\bbs_init.qua", motid, maxframe
+E3DSetMotionKind hsid1, motid
+E3DGetBoneNoByName hsid1, "右手end_シリアル27", boneid
+E3DSetCameraPos 0,500,3000
+*main
+
+E3DIKTranslate hsid1, boneid, motid, 0, 0,0,0 ; ボーンを0,0,0に移動 
+E3DFillUpMotion hsid1, motid, -1, 0, -1, 0 ; 追加３
+E3DSetMotionFrameNo hsid1, motid, 0 ; 追加した命令１
+E3DSetNewPose hsid1, frameno1 ; 追加２
+
+E3DBeginScene scid1
+E3DChkInView scid1, hsid1
+E3DRender scid1, hsid1, 0, 0, 0
+E3DEndScene : E3DPresent scid1
+waitbyfps 60, chkfps1
+goto *main
+

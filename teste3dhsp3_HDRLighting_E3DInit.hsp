@@ -1,0 +1,345 @@
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+	dim keybuf, 256
+	
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+	pointmax = 100
+
+	title "Easy3D for HSP3 sample"
+
+	gosub *InitGame
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+	gosub *MoveCamera
+
+	gosub *ChangeMiddleGray //シーンの明るさを決定づけるmiddlegrayを時間変化させる
+
+	if( keybuf.'B' == 1 ){
+		E3DBye
+		gosub *InitGame
+	}
+
+
+	//元になるシーンをレンダー
+	E3DBeginScene scid_org
+		E3DChkInView scid_org, hsid0
+		E3DRender scid_org, hsid0, 0, 0, 0
+	E3DEndScene
+
+	//ダウンスケール
+	E3DDownScaleRTTexture4x4 scid_small, texid_org
+
+	//トーンマップでシーンの明るさを計測
+	E3DRenderToneMap toneid, texid_small
+
+	//HDRの明るい部分を抜き出してLDRに変換
+	E3DBrightPassRTTextureHDR scid_bright, texid_small, middlegray, threshold, offset, toneid
+
+	//ダウンスケール
+	E3DDownScaleRTTexture2x2 scid_bloom0, texid_bright
+
+	//ガウスぼかしその１
+	E3DBlurTextureGauss5x5 scid_bloom1, texid_bloom0, 10.0
+
+	//ガウスぼかしその２
+	gaussmult = 1.0
+	E3DBlurTextureGauss scid_bloom2, scid_work, texid_work, texid_bloom1, 1.0, gaussmult
+
+	//元画像と明るい部分のぼかし画像とシーンの明るさ情報から最終イメージをレンダー
+	E3DRenderHDRFinal scid_final, texid_org, texid_bloom2, toneid, middlegray 
+	
+	//画面への描画
+	E3DBeginScene scid1
+	E3DBeginSprite
+	E3DRenderSprite spid1, 1.0, 1.0, 0.0, 0.0, 0.5
+	E3DRenderSprite spid2, 1.0, 1.0, spw1, 0.0, 0.5
+	E3DEndSprite
+	gosub *DrawText
+	E3DEndScene
+	E3DPresent scid1
+	
+	waitbyfps 100, chkfps1
+
+	goto *main
+
+*bye
+	E3DBye
+	end
+
+*MoveCamera
+
+	; VK_　が頭につく、定数の詳細は、e3dhsp_vk.as をご覧ください。
+	; keybuf は、GetKeyboardState 命令で、セットされます。
+
+	k=0
+	if keybuf.VK_LEFT !=0 : k+=1 ; 矢印左
+	if keybuf.VK_UP !=0 : k+=2 ; 矢印上
+	if keybuf.VK_RIGHT !=0 : k+=4 ; 矢印右
+	if keybuf.VK_DOWN !=0 : k+=8 ; 矢印下
+	if keybuf.VK_SHIFT !=0 : k+= 16
+
+
+	shift = 20.0
+	deg = 2.0
+
+	if ( k&16 ) {
+		
+		if( k&1 ){
+			//左平行移動
+			deg = camdegxz + 90.0
+			E3DSin deg, shiftx
+			E3DCos deg, shiftz
+			targetx += shiftx * shift
+			targetz -= shiftz * shift
+		}
+		if( k&4 ){	
+			//右平行移動
+			deg = camdegxz - 90.0
+			E3DSin deg, shiftx
+			E3DCos deg, shiftz
+			targetx += shiftx * shift
+			targetz -= shiftz * shift						
+		}
+		if( k&2 ){
+			//上平行移動
+			E3DGetCameraQ camq
+			E3DInvQ camq, invcamq
+			E3DMultQVec invcamq, 0.0, shift, 0.0, shiftx, shifty, shiftz
+			targetx += shiftx
+			targety += shifty
+			targetz += shiftz
+			eye_y = targety						
+		}
+		if( k&8 ){
+			//下平行移動
+			E3DGetCameraQ camq
+			E3DInvQ camq, invcamq
+			E3DMultQVec invcamq, 0.0, -shift, 0.0, shiftx, shifty, shiftz
+			targetx += shiftx
+			targety += shifty
+			targetz += shiftz						
+			eye_y = targety
+		}
+	}
+	else { 
+		//左右回転
+		if k&1 : camdegxz += deg
+		if k&4 : camdegxz -= deg
+		if( camdegxz > 360.0 ){
+			camdegxz -= 360.0
+		}
+		if( camdegxz < 0.0 ) {
+			camdegxz += 360.0
+		}
+
+		//上下回転
+		if k&2 : camdegy += deg
+		if k&8 : camdegy -= deg
+		if( camdegy >= 90.0 ){
+			camdegy = 89.0
+		}
+		if( camdegy <= -90.0 ){
+			camdegy = -89.0
+		}
+	}
+
+	if( keybuf.'Z' !=0 ){
+		cameradist -= 100.0
+		if( cameradist < 500.0 ){
+			cameradist = 500.0
+		}
+	}
+	if( keybuf.'X' !=0 ){
+		cameradist += 100.0
+	}
+
+//targetの場所と角度から、カメラの位置を計算する
+	E3DSin camdegxz, sinxz
+	E3DCos camdegxz, cosxz
+	E3DSin camdegy, siny
+	E3DCos camdegy, cosy
+
+	camposx = sinxz * cosy * cameradist + targetx
+	camposy = eye_y + siny * cameradist
+	camposz = cosxz * cosy * cameradist + targetz
+
+	E3DSetCameraPos camposx, camposy, camposz	
+	E3DSetCameraTarget targetx, targety, targetz, 0.0, 1.0, 0.0
+
+	return
+
+*ChangeMiddleGray
+	if( keydir == 0 ){
+		middlegray += 0.1
+		if( middlegray > 30.0 ){
+			keydir = 1
+		}
+	}
+	if( keydir == 1 ){
+		middlegray -= 0.1
+		if( middlegray <= 0.1 ){
+			keydir = 0
+		}
+	}
+	return
+
+*DrawText
+
+	textr = 255 : textg = 0 : textb = 0
+	textscale = 1
+	textposx = 10 : textposy = 60
+	strchk7 = "chkfps1 " + chkfps1
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk7
+/*
+	textposy += 20
+	strchk7 = "camdegxz " + camdegxz + "  camdegy " + camdegy
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk7
+
+	textposy += 20
+	strchk7 = "camposx " + camposx + "  camposy " + camposy + "  camposz " + camposz
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk7
+
+	textposy += 20
+	strchk7 = "targetx " + targetx + "  targety " + targety + "  targetz " + targetz
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk7
+
+	textposy += 20
+	strchk7 = "cameradist " + cameradist
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk7
+*/
+	textposy += 20
+	strchk7 = "middlegray " + middlegray
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk7
+	
+	textposy += 20
+	strchk7 = "threshold " + threshold
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk7
+
+	textposy += 20
+	strchk7 = "offset " + offset
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk7
+
+
+	return
+
+*InitGame
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	eye_y = 510.0
+	camposx = -546.0 : camposy = eye_y : camposz = -1845.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 196.0 : camdegy = -5.0
+	E3DSetCameraDeg camdegxz, camdegy
+	targetx = 3.2733
+	targety = 683.119
+	targetz = 70.6515
+	cameradist = 2400.0
+
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+	;地面データのロード
+	pathbuf.0 = mediadir + "\\hdrscene3.mqo"
+	E3DLoadMQOFileAsGround pathbuf.0, 10.0, hsid0
+	posx0 = 0.0 : posy0 = 0.0 : posz0 = 0.0
+	degx0 = 0.0 : degy0 = 0.0 : degz0 = 0.0
+	E3DSetPos hsid0, posx0, posy0, posz0
+	E3DSetDir hsid0, degx0, degy0, degz0
+
+	//ピクセル単位のPhongライティングにする
+	E3DSetShaderType hsid0, COL_PPHONG, OVERFLOW_ORG
+
+	E3DCreateLight lid2
+	E3DSetPointLight lid2, 1000.0, 0.0, 3500.0, 9000.0, 255, 255, 255	
+	
+
+	//HDRを使用できるかどうかをチェックする。
+	E3DChkHDR hdrok, hdrformat, toneformat
+	if( hdrok == 0 ){
+		dialog "HDR表示するスペックがないので終了します。"
+		end
+	}
+
+	//HDR用の強い光をセット
+	E3DSetHDRLightDiffuse lid2, 10.0, 10.0, 10.0
+	E3DSetHDRLightSpecular lid2, 0.2, 0.2, 0.2
+
+	//トーンマップのテクスチャを作成
+	tonenum = 4
+	E3DCreateToneMapTexture tonenum, toneformat, toneid, okflag
+	assert okflag
+
+	orgx = screenw / 2
+	orgy = screenh
+	
+	E3DCreateRenderTargetTexture orgx, orgy, scid_org, texid_org, okflag, hdrformat
+	assert okflag
+	E3DCreateRenderTargetTexture orgx / 4, orgy / 4, scid_small, texid_small, okflag, hdrformat
+	assert okflag
+	E3DCreateRenderTargetTexture orgx / 4, orgy / 4, scid_bright, texid_bright, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture orgx / 8, orgy / 8, scid_bloom0, texid_bloom0, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture orgx / 8, orgy / 8, scid_bloom1, texid_bloom1, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture orgx / 8, orgy / 8, scid_work, texid_work, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture orgx / 8, orgy / 8, scid_bloom2, texid_bloom2, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture orgx, orgy, scid_final, texid_final, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	
+	E3DCreateSprite mediadir + "\\dummy256.png", 0, spid1
+	E3DSetTextureToDispObj -2, spid1, texid_org
+	E3DGetSpriteSize spid1, spw1, sph1
+
+	E3DCreateSprite mediadir + "\\dummy256.png", 0, spid2
+	E3DSetTextureToDispObj -2, spid2, texid_final
+	E3DGetSpriteSize spid1, spw2, sph2
+	
+
+///////////////////////
+	E3DCreateQ camq
+	E3DCreateQ invcamq
+
+	chkfps1 = 0
+
+
+	middlegray = 0.1
+	keydir = 0 //middlegrayを増加させるとき０減少させるとき１
+	threshold = 9.5
+	offset = 7.0
+
+	gameflag = 1
+
+
+
+	return
+

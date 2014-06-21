@@ -1,0 +1,178 @@
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+#define	DEG2PAI		0.01745329251994
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 700 : screenh = 700
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 800.0 : camposz = -2000.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 180.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//猫データ読み込み
+	pathbuf.0 = mediadir + "\\my\\my.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+
+
+	//ライトの作成
+	lightdirx1 = 1.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	chkfps1 = 0
+
+	E3DCreateFont 20, 0, 400, 0, 0, 0, "ＭＳ ゴシック", fontid1
+	
+
+/////////
+	partno = -1
+	E3DGetPartNoByName hsid1, "body", partno
+	if( partno < 0 ){
+		assert 0
+		goto *bye
+	}
+
+//	E3DSetToon1Name hsid1, partno, "Material2", "hada"
+//
+//	ddim redcol, 3
+//	redcol(0) = 1.0 : redcol(1) = 0.0 : redcol(2) = 0.0
+//	E3DSetToon1Diffuse hsid1, partno, "hada", redcol
+//
+//	ddim gcol, 3
+//	gcol(0) = 0.0 : gcol(1) = 1.0 : gcol(2) = 0.0
+//	E3DSetToon1Ambient hsid1, partno, "hada", gcol
+//
+//	ddim bcol, 3
+//	bcol(0) = 0.0 : bcol(1) = 0.0 : bcol(2) = 1.0
+//	E3DSetToon1Specular hsid1, partno, "hada", bcol
+//
+//	dnl = cos( 20.0 * DEG2PAI )
+//	bnl = cos( 80.0 * DEG2PAI )
+//	E3DSetToon1NL hsid1, partno, "hada", dnl, bnl
+//
+//	ddim wcol, 3
+//	wcol(0) = 1.0 : wcol(1) = 1.0 : wcol(2) = 1.0
+//	E3DSetToon1Edge0 hsid1, partno, "hada", wcol, 1, 0, 30.0
+
+
+	matnum = 0
+	E3DGetToon1MaterialNum hsid1, partno, matnum
+
+	if( matnum > 0 ){
+		sdim matname, 32, matnum
+		ddim dinfo, TMD_MAX, matnum
+		dim iinfo, TMI_MAX, matnum
+		E3DGetToon1Material hsid1, partno, matname, dinfo, iinfo, matnum
+	}
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	E3DBeginScene scid1
+		E3DChkInView scid1, hsid1
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid1, 0, frameno1, 0
+
+		;半透明部分の描画をする
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+
+		gosub *DrawText
+		
+	E3DEndScene
+	E3DPresent scid1
+	
+	waitbyfps 60, chkfps1
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	textposx = 10 : textposy = 0
+	repeat matnum
+		textposy += 20
+		strchk0 = "material name : " + matname( cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 = "diffuse : " + dinfo( TMD_DIFFUSE_R, cnt ) + ", " + dinfo( TMD_DIFFUSE_G, cnt ) + ", " + dinfo( TMD_DIFFUSE_B, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 = "specular : " + dinfo( TMD_SPECULAR_R, cnt ) + ", " + dinfo( TMD_SPECULAR_G, cnt ) + ", " + dinfo( TMD_SPECULAR_B, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 = "ambient : " + dinfo( TMD_AMBIENT_R, cnt ) + ", " + dinfo( TMD_AMBIENT_G, cnt ) + ", " + dinfo( TMD_AMBIENT_B, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 = "darknl " + dinfo( TMD_DARKNL, cnt ) + ", brightnl " + dinfo( TMD_BRIGHTNL, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+	
+		textposy += 20
+		strchk0 = "edgecol0 : " + dinfo( TMD_EDGECOL0_R, cnt ) + ", " + dinfo( TMD_EDGECOL0_G, cnt ) + ", " + dinfo( TMD_EDGECOL0_B, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 = "edgewidth : " + dinfo( TMD_EDGEWIDTH0, cnt ) + ", valid " + iinfo( TMI_VALID0, cnt ) + ", inv " + iinfo( TMI_INV0, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+	loop
+
+	return
+

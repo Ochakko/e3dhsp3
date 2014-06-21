@@ -1,0 +1,184 @@
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+	dim keybuf, 256	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 4
+	
+
+	;mapsize = 80000	
+	;mapdiv = 80
+
+	mapsize = 120000.0
+	mapdiv = 50
+
+	mapheight = 5500.0
+
+	chgdegx = 0.0 : chkdegy = 0.0 : chkdegz = 0.0
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+	pointmax = 100
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 0.0 : camposz = 0.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 180.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+	confflag = 0
+	endflag = 0
+
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 50000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	E3DCreateProgressBar
+	E3DSetProgressBar 0
+
+
+	pathbuf.0 = mediadir + "\\tree01S_1024.tga"
+	E3DCreateBillboard pathbuf.0, 1000, 3200, 0, bbid0
+	E3DSetBillboardPos bbid0, -1500, 0, 5000
+	
+	pathbuf.0 = mediadir + "\\lake_x4.bmp"
+	E3DCreateBillboard pathbuf.0, 1000, 3200, 0, bbid1
+	E3DSetBillboardPos bbid1, 0, 0, 5000
+
+	pathbuf.0 = mediadir + "\\tree02S_x4.tga"
+	E3DCreateBillboard pathbuf.0, 1000, 3200, 0, bbid2
+	E3DSetBillboardPos bbid2, 1500, 0, 5000
+
+/***	
+	pathbuf.0 = mediadir + "\\tree01S.tga"
+	E3DCreateBillboard pathbuf.0, 1000, 3200, 0, bbid0
+	E3DSetBillboardPos bbid0, -1500, 0, 5000
+	
+	pathbuf.0 = mediadir + "\\tree01S.tga"
+	E3DCreateBillboard pathbuf.0, 1000, 3200, 0, bbid1
+	E3DSetBillboardPos bbid1, 0, 0, 5000
+
+	pathbuf.0 = mediadir + "\\tree01S.tga"
+	E3DCreateBillboard pathbuf.0, 1000, 3200, 0, bbid2
+	E3DSetBillboardPos bbid2, 1500, 0, 5000
+***/
+	
+	;/////////////////	
+	
+	testfps = 0
+
+	lightdirx1 = 0.0
+	lightdiry1 = -1.0
+	lightdirz1 = 2.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	E3DSetLightAmbient lid1, 77, 77, 77
+	E3DSetLightSpecular lid1, 0, 0, 0
+
+	chkfps1 = 0
+
+	E3DDestroyProgressBar
+
+	E3DCreateBG scid1, mediadir + "\\2048dummy1.jpg", mediadir + "\\cloud3.bmp", 0.001, 0.0
+
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	E3DBeginScene scid1
+
+	E3DRenderBillboard scid1
+
+	gosub *DrawText
+
+
+	E3DEndScene
+
+	E3DPresent scid1
+		
+	waitbyfps 300, chkfps1
+
+	arno = 0
+	repeat 49
+		befno = 48 - arno
+		aftno = 49 - arno
+		arfps.aftno = arfps.befno
+		arno++
+	loop	
+	arfps.0 = chkfps1
+
+
+	if( keybuf.'0' == 1 ){
+		E3DDestroyBillboard bbid0
+	}
+
+	if( keybuf.'1' == 1 ){
+		E3DDestroyBillboard bbid1
+	}
+
+	if( keybuf.'2' == 1 ){
+		E3DDestroyBillboard bbid2
+	}
+
+	if( keybuf.'3' == 1 ){
+		E3DDestroyAllBillboard
+	}
+
+	if( keybuf.'4' == 1 ){
+		E3DDestroyBG scid1
+	}
+	if( keybuf.'5' == 1 ){
+		E3DCreateBG scid1, mediadir + "\\2048dummy1.jpg", mediadir + "\\cloud3.bmp", 0.001, 0.0
+	}
+
+	
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+
+*DrawText
+
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	textposx = 10 : textposy = 60
+	strchk1 = "chkFPS1   " + chkfps1
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk1
+
+
+
+	return
+

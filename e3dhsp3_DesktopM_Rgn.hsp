@@ -1,0 +1,158 @@
+
+//キャラクターをクリックしてescキーで終了します。
+
+#include "user32.as"
+#include "gdi32.as"
+#include "winmm.as"    // これはリージョン作成に直接関係無し
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	await 0
+	E3DWaitbyFPS@ p1, fps
+	return
+#global
+	
+	dim arfps, 50
+	dim keybuf, 256
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 256 : screenh = 256
+	bgscr 0, screenw, screenh, 0, 0
+	mainwnd = hwnd
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	wndx = ginfo_dispx / 2
+	wndy = ginfo_dispy / 2
+	wndvx = 4
+	wndvy = 4
+
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 800.0 : camposz = -3500.0
+	ctargetx = 0.0 : ctargety = 800.0 : ctargetz = 0.0
+	E3DSetCameraPos camposx, camposy, camposz
+	E3DSetCameraTarget ctargetx, ctargety, ctargetz, 0, 1, 0
+
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+	//キャラクター読み込み
+	pathbuf.0 = mediadir + "\\morob_6_26_r3.sig"
+	pathbuf.1 = mediadir + "\\morob_6_26_r3.qua"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DAddMotion hsid1, pathbuf.1, mk_idling, max_idling				
+	E3DSetMotionKind hsid1, mk_idling
+	posx = 0.0
+	posy = 0.0
+	posz = -1000.0
+	E3DSetPos hsid1, posx, posy, posz
+	E3DSetMotionStep hsid1, mk_idling, 3
+
+	//レンダーターゲットテクスチャの作成
+	E3DCreateRenderTargetTexture screenw, screenh, scid2, texid2, okflag
+	if( okflag == 0 ){
+		dialog "レンダーターゲットテクスチャが作成できません。\nプログラムを終了します。"
+		goto *bye
+	}
+	
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = -1.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	chkfps1 = 0
+
+    gosub *me_time
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+	
+	gosub *MoveWnd
+
+	E3DSetNewPose hsid1, nextframe
+	E3DBeginScene scid2
+		E3DChkInView scid2, hsid1
+
+		;不透明部分の描画をする
+		E3DRender scid2, hsid1, 0, 0, 0
+		;半透明部分の描画をする
+		E3DRender scid2, hsid1, 1, 0, 0, 0, 0, 1
+
+	E3DEndScene
+	
+
+	E3DSetWindowRgn scid1, scid2
+	E3DPresent scid1
+
+	waitbyfps 10, chkfps1
+	arno = 0
+	repeat 49
+		befno = 48 - arno
+		aftno = 49 - arno
+		arfps.aftno = arfps.befno
+		arno++
+	loop	
+	arfps.0 = chkfps1
+
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+	
+*MoveWnd
+	
+	savewndx = wndx
+	savewndy = wndy
+	
+	if( (savewndx < 50) & (wndvx < 0) ){
+		wndvx = -wndvx
+	}
+	if( (savewndx >= (ginfo_dispx - 200)) & (wndvx > 0) ){
+		wndvx = -wndvx
+	}
+	if( (savewndy < 50) & (wndvy < 0) ){
+		wndvy = -wndvy
+	}
+	if( (savewndy >= (ginfo_dispy - 200)) & (wndvy > 0) ){
+		wndvy = -wndvy
+	}
+
+	wndx = savewndx + wndvx
+	wndy = savewndy + wndvy
+
+	gsel 0, 2
+	MoveWindow hwnd, wndx, wndy, screenw, screenh, 1
+ 
+	return
+
+*me_time
+    timeBeginPeriod 1
+    timeEndPeriod 1
+    return
+

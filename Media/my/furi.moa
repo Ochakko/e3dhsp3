@@ -1,0 +1,19 @@
+Motion Accelerator File ver6.0 type01
+
+#FULENG {
+	10
+}
+
+#EVENTKEY {
+1, 37, 0, 1
+}
+
+#TRUNK {
+	"アイドル正面", "アイドル正面.qua", "Idling0", 0, 0, 0, 0
+	"shakehip", "shakehip.qua", "Normal0", 0, 0, 0, 0
+}
+
+#BRANCH "アイドル正面" {
+	"shakehip", 1, -1, 0, 0, 0
+}
+

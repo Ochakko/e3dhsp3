@@ -1,0 +1,42 @@
+RokDeBone2 Camera File ver1003 type0
+#AnimInfo Start
+	name "dirZ2"
+	frameleng 2
+	animtype "CLAMP"
+	animstep 1
+	motjump 0
+#AnimInfo End
+#Camera0 Start
+	keynum 1
+	#CameraKey Start
+		frameno 0
+		interp "LINEAR"
+		CalcUp 0
+		looktype "NORMAL"
+		pos 0.000000, 800.000000, -2000.000000
+		target 0.000000, 800.000000, 0.000000
+		up 0.000000, 1.000000, 0.000000
+		dist 2000.000000
+		hsid -1
+		boneno -1
+		nearz 1000.000000
+		farz 40000.000000
+		fov 45.000000
+		orthoflag 0
+		orthosize 3000.000000
+	#CameraKey End
+#Camera0 End
+#Camera1 Start
+	keynum 0
+#Camera1 End
+#Camera2 Start
+	keynum 0
+#Camera2 End
+#CameraSwitch Start
+	keynum 1
+	#SwitchKey Start
+		frameno 0
+		camerano 0
+	#SwitchKey End
+#CameraSwitch End
+#EndOfFile

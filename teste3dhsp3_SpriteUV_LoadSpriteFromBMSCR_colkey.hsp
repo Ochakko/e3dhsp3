@@ -1,0 +1,138 @@
+;/////////////////////////////////////////////////////////
+;//
+;//////////////////////////////////////////////////////////
+
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+	dim keybuf, 256
+	
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	chgdegx = 0.0 : chkdegy = 0.0 : chkdegz = 0.0
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+	pointmax = 100
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	eye_y = 800.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camposx = 0.0 : camposy = eye_y : camposz = 2800.0
+	camdegxz = 0.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+	; スプライトデータの読み込み
+//	pathbuf.0 = mediadir + "\\dummy512.bmp"
+//	E3DCreateSprite pathbuf.0, 0, spid1
+//	E3DGetSpriteSize spid1, spw1, sph1
+
+	buffer 3, 200, 200
+	gsel 3, 1
+	E3DCreateSpriteFromBMSCR 3, 2, spid1
+//	E3DCreateSpriteFromBMSCR 3, 1, spid1
+
+	color 255, 0, 0
+	mes "Hello BMSCR !!!!!!!!!!!"
+
+	E3DLoadSpriteFromBMSCR spid1, 3, 2, 0, 0, 0
+//	E3DLoadSpriteFromBMSCR spid1, 3, 2, 0, 0, 0
+//	E3DLoadSpriteFromBMSCR spid1, 3, 0, 0, 0, 0
+	E3DGetSpriteSize spid1, spw1, sph1
+	
+	gsel 0, 1
+
+	;ライト	
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	gsel 3
+	pos 0, 0
+	cls
+	color 255, 0, 0
+	strchk = "refresh BMSCR " + tmpcnt
+	mes strchk
+//	E3DLoadSpriteFromBMSCR spid1, 3
+	E3DLoadSpriteFromBMSCR spid1, 3, 2, 255, 0, 0
+	gsel 0
+	tmpcnt++
+
+	
+	E3DBeginScene scid1		
+	
+		E3DBeginSprite
+			scx2 = 0
+			scy2 = 0
+			scalex2 = 500.0 / double( spw1 )
+			scaley2 = 500.0 / double( sph1 )
+			E3DRenderSprite spid1, scalex2, scaley2, scx2, scy2
+
+		E3DEndSprite
+		gosub *DrawText
+	E3DEndScene
+
+	E3DPresent scid1
+
+	waitbyfps 990, chkfps1
+
+	goto *main
+
+*bye
+	E3DBye
+	end
+
+
+*DrawText
+	textr = 255 : textg = 0 : textb = 0
+	textscale = 1
+
+	textposx = 10 : textposy = 120
+	strchk = "tmpcnt " + tmpcnt
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk
+
+	textposy += 20
+	strchk = "chkfps1 " + chkfps1
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk
+
+
+	return
+

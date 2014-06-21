@@ -1,0 +1,75 @@
+RokDeBone2 GlobalPositionAnim File ver1001 type0
+#AnimInfo Start
+	name "initial"
+	frameleng 5
+	animtype "CLAMP"
+	animstep 1
+	motjump 0
+	groundhsid 0
+#AnimInfo End
+#GPAnim Start
+	keynum 1
+	#GPKey Start
+		frameno 0
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+#GPAnim End
+#GPFullFrame Start
+	#GPKey Start
+		frameno 0
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 1
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 2
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 3
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 4
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+#GPFullFrame End
+#EndOfFile

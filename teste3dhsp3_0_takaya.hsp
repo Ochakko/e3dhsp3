@@ -1,0 +1,114 @@
+#include "e3dhsp3.as"
+
+
+//キー入力変数
+dim key , 256
+
+//pathlen
+pathlen = 2048
+
+//フォルダーの場所
+sdim filepos , pathlen
+filepos = dir_cur + "\\Media\\"
+
+//一度に読み込む最大ファイル数
+filemax = 4
+
+//ファイル名一時保存変数
+sdim filename , filemax , pathlen
+
+screen 0, 640, 480, 0
+//E3D初期化
+E3DInit 0 , -1 , 0 , 16 , 0 , scid
+
+
+E3DCreateProgressBar
+E3DSetProgressBar 0
+
+//カメラ初期化
+;Pos
+camposx = 0.0
+camposy = 50.0
+camposz = 0.0
+E3DSetCameraPos camposx , camposy , camposz
+;Target
+camtarx = 0.0
+camtary = 0.0
+camtarz = 200.0
+E3DSetCameraTarget camtarx , camtary , camtarz
+;projection
+proj_near = 1.0
+proj_far = 3000.0
+proj_fov = 60.0
+E3DSetProjection proj_near , proj_far , proj_fov
+
+E3DSetProgressBar 10
+
+
+//データ読み込み
+//filename.0 = filepos + "p_bl_00.mqo"
+//E3DLoadMQOFileAsChara filename.0 , 1.0 , pl1
+filename.0 = filepos + "poo\\poo.sig"
+E3DSigLoad filename.0, pl1, 0, 0.2
+
+
+E3DSetPos pl1 , 0 , 0 , 200
+
+
+
+E3DSetProgressBar 90
+
+//ライト初期化
+;色
+lightr = 255
+lightg = 255
+lightb = 255
+;向き
+lightx = 0.0
+lighty = -1.0
+lightz = 1.0
+;作成
+E3DCreateLight light
+;設定
+E3DSetDirectionalLight light , lightx , lighty , lightz , lightr , lightg , lightb
+
+setfps = 60
+getfps = setfps
+
+E3DSetProgressBar 100
+
+E3DDestroyProgressBar
+
+////////メインループ////////
+
+*main
+
+////計算・入力
+
+//キー取得準備
+
+////画面出力
+
+//出力開始
+
+
+E3DBeginScene scid
+
+//モデル出力準備
+E3DChkInView scid , pl1
+
+//モデル表示
+E3DRender scid , pl1 , 0 , 0 , 0
+E3DRender scid , pl1 , 1 , 0 , 0 , 0 , 0 , 1
+
+//出力終了
+E3DEndScene
+E3DPresent scid
+
+E3DCameraPosForward 1
+
+
+////ウェイト設定
+E3DWaitByFPS setfps , getfps
+await 0
+goto *main

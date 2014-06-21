@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 6.5.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<P><FONT size="+2">Easy3D For HSP のライトの使用例</FONT></P>
+<P><BR>
+Easy3D For HSP ver1.0.0.4 以降から、複数のライトを扱えるようになりました。<BR>
+種類は、<U>平行光源、ポイントライト、スポットライトの３種類</U>です。<BR>
+それぞれ、ライトの色も設定可能です。<BR>
+<BR>
+いつものように？、オリジナルの計算式で、多少、いんちきしてみました。<BR>
+ですが、ポイントライトや、スポットライトは、平行光源に比べると、処理が少し重いです。<BR>
+<BR>
+以下は、それぞれのライトの使用例です。<BR>
+<BR>
+</P>
+<P><IMG src="jpegfiles/e3dhsp_light_dir1.jpg" width="643" height="504" border="0"><BR>
+平行光源の色に、(0, 255, 0) を指定した例です。<BR>
+<BR>
+<BR>
+<BR>
+</P>
+<P><IMG src="jpegfiles/e3dhsp_light_point1.jpg" width="641" height="501" border="0"><BR>
+赤いポイントライトを、空中に設定した例です。<BR>
+<BR>
+<BR>
+</P>
+<P><IMG src="jpegfiles/e3dhsp_light_spot1.jpg" width="643" height="502" border="0"><BR>
+緑のスポットライトを、セットした例です。<BR>
+<BR>
+<BR>
+</P>
+<P><IMG src="jpegfiles/e3dhsp_light_mix.jpg" width="642" height="502" border="0"><BR>
+もちろん、複数のライトの併用も、可能です。<BR>
+ポイントライトと、スポットライトを併用した例です。<BR>
+</P>
+<P><BR>
+</P>
+<P><B>注意点</B><BR>
+スポットライトや、ポイントライトは、<U>照らされる側のポリゴンが、ある程度細かくないと</U>、<BR>
+その効果を、実感できないと思いますので、注意してください。<BR>
+<BR>
+また、RokDeBone2上で、<U>”明るいところの色”と”暗いところの色”</U>を同じ色に設定してしまうと、<BR>
+ライトの色を変化させても、物体の色は、変化しませんので、ご注意ください。<BR>
+（例えば、古い、猫妹のsig ファイルは、スカートの白の部分の、明るいところと暗いところが同じ色になっています。）<BR>
+<BR>
+<BR>
+</P>
+<P><B>スクリプトでの使用法</B><BR>
+まず、<B>E3DCreateLight</B>という命令で、ライトを生成します。<BR>
+このときに、<U>LightIDという、ライトを識別するＩＤ</U>が取得できます。<BR>
+各種ライトの設定時には、必ず、このLightIDを使用します。<BR>
+<BR>
+使用したいライトの数だけ、E3DCreateLightをすることになります。<BR>
+<BR>
+E3DCreateLightで作成したライトを、<B>平行光源</B>として使用したい場合には、<BR>
+<B>E3DSetDirectionalLight</B>という命令を使います。<BR>
+LightIDと、ライトの向き、ライトの色を指定します。<BR>
+<BR>
+<B>ポイントライト</B>として使用したい場合は、<BR>
+<B>E3DSetPointLight</B>という命令を使います。<BR>
+LightIDと、ライトの位置、ライトの向き、ライトの届く距離、ライトの色を指定します。<BR>
+<BR>
+<B>スポットライト</B>として使用したい場合は、<BR>
+<B>E3DSetSpotLight</B>という命令を使います。<BR>
+LightIDと、ライトの位置、ライトの向き、ライトの届く距離、ライトの照らす角度、ライトの色<BR>
+を指定します。<BR>
+<BR>
+各関数の詳しい引数は、<A href="e3dhsp.htm">Easy3D For HSPのページ</A>の表をご覧ください。<BR>
+<BR>
+</P>
+<P><BR>
+<A href="e3dhsp.htm">Easy3D For HSP のページに戻る</A></P>
+</BODY>
+</HTML>

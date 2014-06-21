@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 11.0.0.0 for Windows">
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<P><FONT size="+2"><B>影付きレンダリングの仕方</B></FONT><BR>
+<BR>
+このページでは影の表示の仕方を説明します。<BR>
+「陰」というと光の当たらない面が暗くなっている所をさしますが<BR>
+「影」とは光源と物体の間に遮蔽物があり、物体が遮蔽物で隠されている部分が暗くなるところなどをさします。<BR>
+<BR>
+影を描画するための原理はここでは詳しくは説明しません。<BR>
+ここでは影を表示するための命令の使い方をe3dhsp3_shadow2.hspを例にとって説明します。<BR>
+<BR>
+まずe3dhsp3_shadow2.hspを実行してみてください。<BR>
+<BR>
+<IMG src="jpegfiles/e3dhsp_shadowss.jpg" width="661" height="526" border="0"><BR>
+図１　サンプルの実行画面<BR>
+<BR>
+図１のように地面にモロ星人とビルボードの木の影が落ちています。<BR>
+<BR>
+<FONT color="#800080">ver5.0.2.0から影の表示にLiSPSMという技術を導入しました</FONT>。<BR>
+ver5.0.2.0以前の影の表示はユーザーさんがパラメータを適切に設定しないとちゃんとした影は表示されませんでしたが<BR>
+ver5.0.2.0からは難しいパラメータは自動で設定されます。<BR>
+それでもいくつかやらないといけないことがあるのでそれを順番に説明します。<BR>
+<BR>
+<BR>
+まず影を描画するには大きなレンダリング可能なテクスチャが必要です。<BR>
+テクスチャにライトの位置から見たシーンのZ成分（カメラからの距離）を描画します。<BR>
+このテクスチャのZ成分と通常のカメラから見たZ座標を比べて影なのか影じゃないのかを判定します。<BR>
+<BR>
+このテクスチャにZ成分を書きだす際にテクスチャに格納可能な精度が問題になります。<BR>
+精度が悪いと影の形が悪くなったり縞模様が出たりします。<BR>
+ですので出来ればアルファ付きの浮動小数点フォーマット（D3DFMT_A16B16G16R16F)を使います。<BR>
+<BR>
+e3dhsp3_shadow2.hspの中で言いますと<BR>
+　　E3DCheckRTFormat D3DFMT_A16B16G16R16F, fmtok<BR>
+　　if( fmtok != 0 ){<BR>
+　　　　rtsize = 1024<BR>
+　　　　E3DCreateRenderTargetTexture 1024, 1024, rtscid, rttexid, rtok1, D3DFMT_A16B16G16R16F<BR>
+　　　　if( rtok1 == 0 ){<BR>
+　　　　　　rtsize = 512<BR>
+　　　　　　E3DCreateRenderTargetTexture 512, 512, rtscid, rttexid, rtok2, D3DFMT_A16B16G16R16F<BR>
+　　　　　　if( rtok2 == 0 ){<BR>
+　　　　　　　　rtsize = 256<BR>
+　　　　　　　　E3DCreateRenderTargetTexture 256, 256, rtscid, rttexid, rtok3,
+D3DFMT_A16B16G16R16F<BR>
+　　　　　　　　if( rtok3 == 0 ){<BR>
+　　　　　　　　　　dialog &quot;メモリ不足で実行できません&quot;<BR>
+　　　　　　　　　　goto *bye<BR>
+　　　　　　　　}<BR>
+　　　　　　}<BR>
+　　　　}<BR>
+　　}else{<BR>
+　　　　rtsize = 1024<BR>
+　　　　E3DCreateRenderTargetTexture 1024, 1024, rtscid, rttexid, rtok4, D3DFMT_A8R8G8B8<BR>
+　　　　if( rtok4 == 0 ){<BR>
+　　　　　　rtsize = 512<BR>
+　　　　　　E3DCreateRenderTargetTexture 512, 512, rtscid, rttexid, rtok5, D3DFMT_A8R8G8B8<BR>
+　　　　　　if( rtok5 == 0 ){<BR>
+　　　　　　　　rtsize = 256<BR>
+　　　　　　　　E3DCreateRenderTargetTexture 256, 256, rtscid, rttexid, rtok6,
+D3DFMT_A8R8G8B8<BR>
+　　　　　　　　if( rtok6 == 0 ){<BR>
+　　　　　　　　　　dialog &quot;メモリ不足で実行できません&quot;<BR>
+　　　　　　　　　　goto *bye<BR>
+　　　　　　　　}<BR>
+　　　　　　}<BR>
+　　　　}<BR>
+　　}<BR>
+<BR>
+の部分がそうです。<BR>
+E3DCheckRTFormatで浮動小数点フォーマットが可能かどうかを調べ可能な場合はD3DFMT_A16B16G16R16Fで<BR>
+可能でない場合はD3DFMT_A8R8G8B8で作成します。<BR>
+<BR>
+浮動小数点フォーマットの方が影の精度がよくなりますが、ビデオカードによっては問題が生じる場合があります。<BR>
+ビルボードの影が四角くなってしまうことがあるのです。<BR>
+この現象はGeForce FX5200で確認されたという報告がありました。<BR>
+ですので精度は悪くなりますが、どのビデオカードでもビルボードの影をちゃんと出したい場合には<BR>
+D3DFMT_A8R8G8B8でレンダーターゲットテクスチャを作るのが無難です。<BR>
+<BR>
+レンダーターゲットテクスチャの大きさは大きい方が影の形が良くなりますが<BR>
+環境によってはメモリ不足になることがあるので、必ずE3DCreateRenderTargetTextureのokflagの値を見て<BR>
+成功しているかチェックし、失敗した場合は小さいサイズのテクスチャを作成し直します。<BR>
+<BR>
+実行画面の左上に描画しているのがこのレンダーターゲットテクスチャの中身です。<BR>
+<BR>
+<BR>
+E3DSetShadowBias ではZバッファの誤差の軽減のためのバイアス値の設定をします。<BR>
+浮動小数点のレンダーターゲットテクスチャが作れない場合などは特にですが<BR>
+Zバッファの誤差の影響で画面に縞模様が出たり、ごみのような黒いものが表示されたりします。<BR>
+バイアスの値を大きく設定するとこの誤差による現象が軽減されます。<BR>
+ただしあまり大きい値を設定すると、今度は影の形が変わってしまいます。<BR>
+<BR>
+E3DSetShadowDarknessでは影の暗さを設定します。<BR>
+指定した値がアンビエント色に乗算されて影の色になります。<BR>
+通常１．０でいいと思います。１．０のときは影の色と陰の色が同じになります。<BR>
+<BR>
+E3DSetShadowMapLightDirで影用の平行光源の向きを設定します。<BR>
+地面に影を落とすためには向きのY成分はマイナスにする必要があります。<BR>
+<BR>
+<BR>
+<FONT color="#ff0000">ver5.0.2.0以前の影の表示に必要だったE3DSetShadowMapCameraとE3DSetShadowMapProjOrthoは必要なくなりました。</FONT><BR>
+<BR>
+<BR>
+ここまでがテクスチャに描画する準備です。<BR>
+<BR>
+次はいよいよシーンの描画をします。<BR>
+e3dhsp3_shadow2.hspでは<BR>
+<BR>
+	arhsid.0 = hsid0<BR>
+	arhsid.1 = hsid4<BR>
+	arhsid.2 = -1<BR>
+	E3DRenderWithShadow scid1, rtscid, rttexid, arhsid, 3<BR>
+<BR>
+の行でレンダリングしています。<BR>
+arhsidの配列に描画したいhsidを格納します。-1はビルボードです。<BR>
+E3DRenderWithShadowでは内部でE3DChkInView、E3DBeginScene、E3DEndSceneも呼ばれます。<BR>
+ピクセルシェーダー２．０がない環境では影は表示できないので、そのときは通常の影なしシーンを描画するようになっています。<BR>
+<BR>
+E3DRenderWithShadowではスプライトやテキストは描画できません。<BR>
+スプライトやテキストを描画したいときは<BR>
+E3DRenderWithShadow に続けてE3DBeginSceneをskipflag 1で呼び出して描画を追加します。<BR>
+<BR>
+例えば<BR>
+E3DBeginScene scid1, 1<BR>
+　　E3DBeginSprite<BR>
+　　　　spsc = 120.0 / double( rtsize )<BR>
+　　　　E3DRenderSprite spid1, spsc, spsc, 0, 0, 0.0 <BR>
+　　E3DEndSprite<BR>
+　　gosub *DrawText<BR>
+	E3DEndScene<BR>
+<BR>
+のようになります。<BR>
+<BR>
+<BR>
+LiSPSMの導入により、影付きシーンの視野内にあるオブジェクトがシャドウマップに含まれるように自動的に調整が行われます。<BR>
+この際、地面のオブジェクトはシャドウマップに含まれるようには設定されません。地面以外のオブジェクト（ビルボードを含む）の<BR>
+合計最大１０００個までのパーツがシャドウマップに含まれるように設定されます。<BR>
+<BR>
+<BR>
+<BR>
+簡単ですが以上で説明は終わりです。<BR>
+<BR>
+<BR>
+<BR>
+<A href="index.htm">トップページに戻る</A><BR>
+<BR>
+</P>
+</BODY>
+</HTML>

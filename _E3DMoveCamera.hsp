@@ -1,0 +1,118 @@
+//メタセコ風カメラモジュール　;著作権フリー　BY.26℃　
+
+
+#module
+	
+//初期化
+	#deffunc _E3DMoveCameraINIT int p4, int p5, int p6, int p7, int p8, int p9
+		targetx = p4 : targety = p5 : targetz = p6
+		cameradist = p7 : camdegxz = p8 : camdegy = p9
+		eye_y = targety
+		E3DCreateQ camq
+		E3DCreateQ invcamq
+		E3DCreateQ SAVE_CAMERAQ
+		dim keybuf, 256
+	return
+	
+
+//注視点変更
+	#deffunc _E3DMoveCameraT int p4, int p5, int p6
+		targetx = p4 : targety = p5 : targetz = p6
+		eye_y = targety
+	return
+
+//カメラメイン
+	#deffunc _E3DMoveCamera
+
+		E3DSetCameraPos camposx, camposy, camposz	
+		E3DSetCameraTarget targetx, targety, targetz, 0.0, 1.0, 0.0
+		;
+		E3DGetKeyboardState keybuf
+		;
+		omsx = msx : omsy = msy
+		msx = ginfo_mx : msy = ginfo_my
+
+		;カメラ並行移動	
+		yhift=-double(omsy-msy)*camlong@ /200.0
+		xhift= double(omsx-msx)*camlong@ /200.0
+
+		if( keybuf.VK_MBUTTON == 1 ){
+			E3DGetCameraQ camq
+			E3DInvQ camq, invcamq
+			E3DMultQVec invcamq, xhift, yhift, 0.0, shiftx, shifty, shiftz
+			targetx += shiftx
+			targety += shifty
+			targetz += shiftz
+			eye_y = targety	
+		}
+		;
+		if tt=0{
+			hanx=(msx+camdegxz)
+			hany=(msy-camdegy)
+		}
+		;
+		hanx2=msx-hanx
+		hany2=msy-hany
+		tt=0
+		;
+		if( keybuf.VK_RBUTTON == 1 )&( keybuf.VK_LBUTTON != 1 ){
+			tt=1
+			//左右回転
+			camdegxz = -hanx2
+			if( camdegxz > 360.0 ){
+				camdegxz -= 360.0
+			}
+			if( camdegxz < 0.0 ) {
+				camdegxz += 360.0
+			}
+
+			//上下回転
+			camdegy = hany2
+			if( camdegy >= 90.0 ){
+				camdegy = 89.0
+			}
+			if( camdegy <= -90.0 ){
+				camdegy = -89.0
+			}
+		}
+		;
+		if( keybuf.VK_LBUTTON == 1 )&( keybuf.VK_RBUTTON == 1 ){
+			cameradist+=yhift*10
+		}
+		;
+		if cameradist<=80{
+			cameradist=80
+		}
+
+		//targetの場所と角度から、カメラの位置を計算する
+		E3DSin camdegxz, sinxz
+		E3DCos camdegxz, cosxz
+		E3DSin camdegy, siny
+		E3DCos camdegy, cosy
+
+		camposx = sinxz * cosy * cameradist + targetx
+		camposy = eye_y + siny * cameradist
+		camposz = -cosxz * cosy * cameradist + targetz
+	
+		E3DSetCameraPos camposx, camposy, camposz	
+		E3DSetCameraTarget targetx, targety, targetz, 0.0, 1.0, 0.0
+	
+		longx@=(camposx) - (targetx)
+		longy@=(camposy) - (targety)
+		longz@=(camposz) - (targetz)
+		
+		E3DVec3Length longx@,longy@,longz@,camlong@
+		
+		E3DSetDirectionalLight lid1, -longx@, -longy@, -longz@, 255, 255, 255
+	
+		//正射影か射影
+		if Ortho@=1{
+			E3DSetOrtho -10000.0, proj_far@, camlong@ * 1.5
+		}else{
+			E3DSetProjection proj_near@, proj_far@, proj_fovdeg@
+		}
+
+	return
+
+
+#global

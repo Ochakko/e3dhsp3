@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 11.0.0.0 for Windows">
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<P><FONT size="+2"><B>カメラアニメをゲーム中で使うために</B></FONT><BR>
+<BR>
+Easy3D ver5.3.3.3でカメラ操作に拡張機能を付けました。<BR>
+命令はE3DSetCameraOffsetというものです。<BR>
+<BR>
+これは何をするものかというと<BR>
+通常のカメラ設定にオフセット（初期位置、初期向き）を加えるものです。<BR>
+<BR>
+パラメータはcamoffbef, camqid, camoffaftの３つです。<BR>
+camoffbefとcamoffaftは位置座標、camqidは回転を示すクォータニオンです。<BR>
+<BR>
+どういう風に機能するかというと<BR>
+まずcamoffbefだけ平行移動し、camqidだけ回転した後、camoffaftだけ平行移動する<BR>
+という変換を通常のカメラ処理の変換の前に加えます。<BR>
+<BR>
+カメラアニメの再生と組み合わせれば、カメラアニメ全体を移動回転できることになります。<BR>
+<BR>
+なぜ平行移動が２つと回転が１つかというと理由があります。<BR>
+完全な理屈は難しいので例を１つ挙げて説明します。<BR>
+<BR>
+camoffbefに-1.0 * pos1の座標を与え、camoffaftにpos1の座標を与えて適当な回転qを与えると<BR>
+pos1を中心にqだけ回転する変換が出来上がります。<BR>
+腕の関節を考えてみてください。<BR>
+ひじの関節の位置をpos1としたとき<BR>
+ひじを原点に移動する-pos1の変換の後、回転を加え、pos1だけ平行移動して元の位置に戻すと<BR>
+ひじの関節を中心に回転することが分かるでしょう。<BR>
+<BR>
+ひじの位置をpos2に置きたいときは<BR>
+camoffbefに-pos1をcamoffaftにpos1 - pos2を指定すればOKです。<BR>
+<BR>
+ここでなぜcampffaftがpos1 + pos2で無いかというと<BR>
+カメラの変換は表示する物体に適用されるということに原因があります。<BR>
+つまりカメラを前に動かしたように見せるために、実際には物体を後ろに動かすのです。<BR>
+そこで pos1 - pos2となります。<BR>
+<BR>
+さてここからが本題。<BR>
+<BR>
+この仕組みを使えば<BR>
+E3DLoadCameraFileで読み込んだcamファイルを自由な位置と向きから再生開始できるということです。<BR>
+<BR>
+まずcamファイルの準備から始めます。<BR>
+RokDeBone2でcamファイルを作るときにキャラクターが原点にあると想定して作成するところがミソです。<BR>
+原点のキャラクターを見るようにアニメを作りcamファイルを保存します。<BR>
+<BR>
+そしてアニメ再生時にキャラクターの位置と向きに応じたオフセットを設定すれば良いのです。<BR>
+キャラクターの位置をpos1,　キャラクターの向きのクォータニオンをqとすると<BR>
+camoffbefは-pos1になり、camoffaftはpos1 - pos1（befを元に戻すpos1とカメラをキャラクター位置に移動する-pos1の演算）となります。<BR>
+向きはキャラクターの向きの逆クォータニオンになります。<BR>
+逆クォータニオンはE3DInvQで求めます。<BR>
+これらのパラメータをE3DSetCameraOffsetに渡せばOK！<BR>
+<BR>
+<BR>
+もう一点こつがあります。<BR>
+カメラアニメとそうでない通常のカメラとの切り替え時にカメラが急激に切り替わるのが嫌な場合の対処です。<BR>
+<BR>
+これを解決するには通常時も１フレーム長のキャラクターのアングルを決めるcamファイルを再生し、<BR>
+E3DSetCameraOffsetでカメラを操作すると良いです。<BR>
+<BR>
+つまり常時、カメラアニメ＋E3DSetCameraOffsetで操作するのです。<BR>
+<BR>
+これらを実装したサンプルは<BR>
+HSP版はe3dhsp3_CameraOffset.hsp<BR>
+Win32版はCameraOffsetソリューション<BR>
+にあります。<BR>
+<BR>
+実際にいじってみて理解を深めてください。<BR>
+<BR>
+<BR>
+なお、この仕組みについてぼくはこれ以上説明できません。<BR>
+ひょっとしたら説明に間違いが含まれているかもしれません。<BR>
+<BR>
+<FONT size="+1"><B>どうしてこうなるのか？とか聞かれても困ります。</B></FONT><BR>
+<B><FONT size="+1">ですのでこの件については質問禁止とします</FONT></B>（笑）<BR>
+<BR>
+完全に理解したかったら、各自数学を勉強するなどして対処してください。<BR>
+<BR>
+では健闘を祈ります。<BR>
+<BR>
+<BR>
+<BR>
+<A href="index.htm">トップページに戻る</A><BR>
+</P>
+</BODY>
+</HTML>

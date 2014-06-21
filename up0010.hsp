@@ -1,0 +1,62 @@
+#include "e3dhsp3.as"
+
+;#define SPRITE_MAX	64
+
+#define SPRITE_MAX	320
+
+	dim sprite_id, SPRITE_MAX
+	memset sprite_id, 0xFF, length(sprite_id) * 4
+
+	buffer 5, 256, 256
+
+	gsel 0, 0
+
+	onexit goto *quit
+
+	; Easy 3D 初期化
+	E3DEnableDbgFile
+	
+	E3DInit 0, -1, 0, 16, 0, id_scr
+	E3DCreateBG id_scr, dir_cur + "\\black.bmp", "", 0, 0, 0
+
+	dialog "テストを開始します\nタスクマネージャーでメモリ使用量を確認してください"
+
+;	repeat 2
+	
+		memset sprite_id, 0xFF, SPRITE_MAX * 4
+		
+		repeat SPRITE_MAX
+			alcnt = cnt
+			E3DCreateSpriteFromBMSCR 5, 0, sprite_id.alcnt, 255, 255, 254
+
+; 一回ずつ削除すると問題なさそうに見える
+;			E3DDestroySprite sprite_id.alcnt
+;			sprite_id.alcnt = -1
+		loop
+
+; が一度に削除するとメモリが開放されずに残る
+		gosub *destroy_all
+
+;	loop
+
+	dialog "テストを終了しました\nタスクマネージャーでメモリ使用量を確認してください"
+
+	stop
+
+*destroy_all
+	repeat SPRITE_MAX
+		delcnt = cnt
+		strchk3 = "\r\ndbgout : destroy : index " + delcnt + " : id " + sprite_id.delcnt
+		E3DDbgOut strchk3
+		if -1 != sprite_id.delcnt {
+			E3DDestroySprite sprite_id.delcnt
+			sprite_id.delcnt = -1
+		}
+	loop
+	return
+
+*quit
+	; 全てのスプライトの削除
+	gosub *destroy_all
+	E3DBye
+	end

@@ -1,0 +1,3055 @@
+RokDeBone2 GlobalPositionAnim File ver1001 type0
+#AnimInfo Start
+	name "move1"
+	frameleng 300
+	animtype "CLAMP"
+	animstep 1
+	motjump 0
+	groundhsid 0
+#AnimInfo End
+#GPAnim Start
+	keynum 4
+	#GPKey Start
+		frameno 0
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 15
+		interp "LINEAR"
+		pos 680.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 46
+		interp "LINEAR"
+		pos -755.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 60
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+#GPAnim End
+#GPFullFrame Start
+	#GPKey Start
+		frameno 0
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 1
+		interp "LINEAR"
+		pos 45.333336, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 2
+		interp "LINEAR"
+		pos 90.666672, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 3
+		interp "LINEAR"
+		pos 136.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 4
+		interp "LINEAR"
+		pos 181.333344, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 5
+		interp "LINEAR"
+		pos 226.666687, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 6
+		interp "LINEAR"
+		pos 272.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 7
+		interp "LINEAR"
+		pos 317.333344, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 8
+		interp "LINEAR"
+		pos 362.666687, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 9
+		interp "LINEAR"
+		pos 408.000031, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 10
+		interp "LINEAR"
+		pos 453.333374, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 11
+		interp "LINEAR"
+		pos 498.666687, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 12
+		interp "LINEAR"
+		pos 544.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 13
+		interp "LINEAR"
+		pos 589.333374, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 14
+		interp "LINEAR"
+		pos 634.666687, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 15
+		interp "LINEAR"
+		pos 680.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 16
+		interp "LINEAR"
+		pos 633.709656, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 17
+		interp "LINEAR"
+		pos 587.419373, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 18
+		interp "LINEAR"
+		pos 541.129028, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 19
+		interp "LINEAR"
+		pos 494.838715, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 20
+		interp "LINEAR"
+		pos 448.548401, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 21
+		interp "LINEAR"
+		pos 402.258057, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 22
+		interp "LINEAR"
+		pos 355.967743, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 23
+		interp "LINEAR"
+		pos 309.677429, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 24
+		interp "LINEAR"
+		pos 263.387115, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 25
+		interp "LINEAR"
+		pos 217.096802, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 26
+		interp "LINEAR"
+		pos 170.806458, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 27
+		interp "LINEAR"
+		pos 124.516113, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 28
+		interp "LINEAR"
+		pos 78.225830, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 29
+		interp "LINEAR"
+		pos 31.935486, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 30
+		interp "LINEAR"
+		pos -14.354797, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 31
+		interp "LINEAR"
+		pos -60.645142, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 32
+		interp "LINEAR"
+		pos -106.935486, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 33
+		interp "LINEAR"
+		pos -153.225769, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 34
+		interp "LINEAR"
+		pos -199.516113, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 35
+		interp "LINEAR"
+		pos -245.806396, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 36
+		interp "LINEAR"
+		pos -292.096741, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 37
+		interp "LINEAR"
+		pos -338.387085, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 38
+		interp "LINEAR"
+		pos -384.677368, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 39
+		interp "LINEAR"
+		pos -430.967773, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 40
+		interp "LINEAR"
+		pos -477.258057, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 41
+		interp "LINEAR"
+		pos -523.548340, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 42
+		interp "LINEAR"
+		pos -569.838623, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 43
+		interp "LINEAR"
+		pos -616.129028, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 44
+		interp "LINEAR"
+		pos -662.419312, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 45
+		interp "LINEAR"
+		pos -708.709595, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 46
+		interp "LINEAR"
+		pos -755.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 47
+		interp "LINEAR"
+		pos -701.071411, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 48
+		interp "LINEAR"
+		pos -647.142822, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 49
+		interp "LINEAR"
+		pos -593.214294, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 50
+		interp "LINEAR"
+		pos -539.285706, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 51
+		interp "LINEAR"
+		pos -485.357117, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 52
+		interp "LINEAR"
+		pos -431.428558, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 53
+		interp "LINEAR"
+		pos -377.500000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 54
+		interp "LINEAR"
+		pos -323.571411, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 55
+		interp "LINEAR"
+		pos -269.642822, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 56
+		interp "LINEAR"
+		pos -215.714233, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 57
+		interp "LINEAR"
+		pos -161.785706, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 58
+		interp "LINEAR"
+		pos -107.857117, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 59
+		interp "LINEAR"
+		pos -53.928528, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 60
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 61
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 62
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 63
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 64
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 65
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 66
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 67
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 68
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 69
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 70
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 71
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 72
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 73
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 74
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 75
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 76
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 77
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 78
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 79
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 80
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 81
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 82
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 83
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 84
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 85
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 86
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 87
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 88
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 89
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 90
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 91
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 92
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 93
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 94
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 95
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 96
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 97
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 98
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 99
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 100
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 101
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 102
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 103
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 104
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 105
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 106
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 107
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 108
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 109
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 110
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 111
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 112
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 113
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 114
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 115
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 116
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 117
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 118
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 119
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 120
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 121
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 122
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 123
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 124
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 125
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 126
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 127
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 128
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 129
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 130
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 131
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 132
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 133
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 134
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 135
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 136
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 137
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 138
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 139
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 140
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 141
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 142
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 143
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 144
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 145
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 146
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 147
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 148
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 149
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 150
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 151
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 152
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 153
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 154
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 155
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 156
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 157
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 158
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 159
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 160
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 161
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 162
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 163
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 164
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 165
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 166
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 167
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 168
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 169
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 170
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 171
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 172
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 173
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 174
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 175
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 176
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 177
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 178
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 179
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 180
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 181
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 182
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 183
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 184
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 185
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 186
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 187
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 188
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 189
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 190
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 191
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 192
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 193
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 194
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 195
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 196
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 197
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 198
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 199
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 200
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 201
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 202
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 203
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 204
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 205
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 206
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 207
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 208
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 209
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 210
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 211
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 212
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 213
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 214
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 215
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 216
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 217
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 218
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 219
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 220
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 221
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 222
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 223
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 224
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 225
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 226
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 227
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 228
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 229
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 230
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 231
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 232
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 233
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 234
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 235
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 236
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 237
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 238
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 239
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 240
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 241
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 242
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 243
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 244
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 245
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 246
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 247
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 248
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 249
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 250
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 251
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 252
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 253
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 254
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 255
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 256
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 257
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 258
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 259
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 260
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 261
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 262
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 263
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 264
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 265
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 266
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 267
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 268
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 269
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 270
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 271
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 272
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 273
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 274
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 275
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 276
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 277
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 278
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 279
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 280
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 281
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 282
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 283
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 284
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 285
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 286
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 287
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 288
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 289
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 290
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 291
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 292
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 293
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 294
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 295
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 296
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 297
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 298
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+	#GPKey Start
+		frameno 299
+		interp "LINEAR"
+		pos 0.000000, 0.000000, 0.000000
+		rot 0.000000, 0.000000, 0.000000
+		ongmode "NONE"
+		rayy 5000.000000
+		rayleng 8000.000000
+		offsety 10.000000
+	#GPKey End
+#GPFullFrame End
+#EndOfFile

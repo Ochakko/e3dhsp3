@@ -1,0 +1,142 @@
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	//データ読み込み
+	pathbuf.0 = mediadir + "\\my\\my.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+
+	pathbuf.0 = mediadir + "\\my\\アイドル正面.qua"
+	E3DAddMotion hsid1, pathbuf.0, motid1, framemax1, 1.0
+	E3DSetMotionKind hsid1, motid1
+
+	//ライトの作成
+	lightdirx1 = 1.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	chkfps1 = 0
+
+	E3DCreateFont 20, 0, 400, 0, 0, 0, "ＭＳ ゴシック", fontid1
+	
+
+/////////
+	pathbuf.0 = mediadir + "\\cameraanim_1.cam"
+	E3DLoadCameraFile pathbuf.0, animno1
+
+	pathbuf.0 = mediadir + "\\cameraanim_2.cam"
+	E3DLoadCameraFile pathbuf.0, animno2
+
+	E3DSetCameraAnimNo animno1
+
+//	E3DDeleteCameraKey animno1, 2, 59
+
+	dim cami, CAMI_MAX
+	ddim camd, CAMD_MAX
+	cami(CAMI_LOOKTYPE) = CAML_NORMAL
+	cami(CAMI_HSID) = -1
+	cami(CAMI_BONENO) = -1
+	cami(CAMI_ORTHO) = 0
+
+	camd(CAMD_POSX) = 1926.0
+	camd(CAMD_POSY) = 663.0
+	camd(CAMD_POSZ) = 2116.0
+	camd(CAMD_TARX) = 0.0
+	camd(CAMD_TARY) = 750.0
+	camd(CAMD_TARZ) = 0.0
+	E3DVec3Length camd(CAMD_POSX) - camd(CAMD_TARX), camd(CAMD_POSY) - camd(CAMD_TARY), camd(CAMD_POSZ) - camd(CAMD_TARZ), dist
+	camd(CAMD_DIST) = dist
+	camd(CAMD_NEARZ) = 100.0
+	camd(CAMD_FARZ) = 40000.0
+	camd(CAMD_FOV) = 45.0
+	camd(CAMD_ORTHOSIZE) = 3000.0
+
+	E3DSetCameraKey animno1, 2, 59, cami, camd
+	
+	E3DSetNextCameraAnimFrameNo animno1, animno2, 0, -1
+	E3DSetNextCameraAnimFrameNo animno2, animno1, 0, -1
+
+	
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	E3DSetNewCamera -1
+	E3DSetNewPose hsid1, frameno1
+	E3DChkInView scid1, hsid1
+
+	E3DBeginScene scid1
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid1, 0, frameno1, 0
+
+		;半透明部分の描画をする
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+
+		gosub *DrawText
+		
+	E3DEndScene
+	E3DPresent scid1
+
+// 30fps	
+	waitbyfps 30, chkfps1
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	E3DGetCameraFrameNo curanim, curcamera, curframe
+
+	textposx = 10 : textposy = 0
+	strchk0 = "animno " + curanim + "  camerano " + curcamera + "  frameno " + curframe
+	E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+	
+	return
+

@@ -1,0 +1,151 @@
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 1100
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 800.0 : camposz = -2000.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 180.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//猫データ読み込み
+//	pathbuf.0 = mediadir + "\\morph\\morph5.sig"
+//	pathbuf.0 = mediadir + "\\bbs_bone1_red2.sig"
+	pathbuf.0 = mediadir + "\\さんぷる\\bonnya.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	chkfps1 = 0
+
+	E3DCreateFont 20, 0, 400, 0, 0, 0, "ＭＳ ゴシック", fontid1
+	
+
+/////////
+	matnum = 0
+	E3DGetMaterialNum hsid1, matnum
+
+	sdim matname, 256, matnum
+	dim mii, MII_MAX, matnum
+	ddim mid, MID_MAX, matnum
+
+	E3DGetMaterialInfo hsid1, matname, mii, mid, matnum, getnum
+
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	E3DBeginScene scid1
+		E3DChkInView scid1, hsid1
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid1, 0, frameno1, 0
+
+		;半透明部分の描画をする
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+
+
+		gosub *DrawText
+		
+	E3DEndScene
+	E3DPresent scid1
+	
+	waitbyfps 60, chkfps1
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	textposx = 10 : textposy = 0
+
+	repeat getnum
+		textposy += 20
+		strchk0 = "matname : " + matname( cnt ) + "  matno : " + mii( MII_MATNO, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 =  "diffuse " + mii( MII_DIFFR, cnt ) + "  " + mii( MII_DIFFG, cnt ) + "  " + mii( MII_DIFFB, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 =  "specular " + mii( MII_SPCR, cnt ) + "  " + mii( MII_SPCG, cnt ) + "  " + mii( MII_SPCB, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 =  "ambient " + mii( MII_AMBR, cnt ) + "  " + mii( MII_AMBG, cnt ) + "  " + mii( MII_AMBB, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 =  "emissive " + mii( MII_EMIR, cnt ) + "  " + mii( MII_EMIG, cnt ) + "  " + mii( MII_EMIB, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 =  "alpha " + mid( MID_EMIR, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+		strchk0 =  "power " + mid( MID_POWER, cnt )
+		E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+
+		textposy += 20
+	
+	loop
+
+	return
+

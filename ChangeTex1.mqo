@@ -1,0 +1,35 @@
+Metasequoia Document
+Format Text Ver 1.0
+
+Scene {
+	pos 0.0000 0.0000 1500.0000
+	lookat 0.0000 0.0000 0.0000
+	head 1.7364
+	pich 0.0808
+	ortho 0
+	zoom2 5.0000
+	amb 0.250000 0.250000 0.250000
+}
+Material 2 {
+	"mat_dummy" col(1.000 1.000 1.000 1.000) dif(1.000) amb(0.250) emi(0.000) spc(0.000) power(0.00)
+	"mat_polymesh2_2_0" col(0.800 0.800 0.800 1.000) dif(1.000) amb(2.400) emi(0.000) spc(0.000) power(0.00) tex("D:\pgfile9\e3dhsp3\Media\Num2.jpg")
+}
+Object "obj1" {
+	visible 15
+	locking 0
+	shading 1
+	facet 180.000000
+	color 0.898 0.498 0.698
+	color_type 0
+	vertex 4 {
+		-1000.0000 1000.0000 -0.0000
+		1000.0000 1000.0000 -0.0000
+		1000.0000 -1000.0000 -0.0000
+		-1000.0000 -1000.0000 -0.0000
+	}
+	face 2 {
+		3 V(0 1 2) M(1) UV(0.00000 0.00000 1.00000 0.00000 1.00000 1.00000)
+		3 V(0 2 3) M(1) UV(0.00000 0.00000 1.00000 1.00000 0.00000 1.00000)
+	}
+}
+Eof

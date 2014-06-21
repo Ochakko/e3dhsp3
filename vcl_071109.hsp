@@ -1,0 +1,95 @@
+#include "e3dhsp3.as"
+
+	screen 0, 320, 240
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 32, 0, scid1
+
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 800.0 : camposz = -2000.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 180.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//猫データ読み込み
+	pathbuf.0 = mediadir + "\\bbs_bone1_red2.sig"
+//	pathbuf.0 = mediadir + "\\saru_bone.sig"
+//	pathbuf.0 = mediadir + "\\tiyu.sig"
+	E3DSigLoad pathbuf.0, hsid
+	E3DSetPos hsid, 0.0, 0.0, 0.0
+
+/***
+//モーションの読み込み
+	pathbuf.0 = mediadir + "\\bbs_idle.qua"
+	E3DAddMotion hsid, pathbuf.0, motid1, framemax1
+
+	E3DSetMotionKind hsid, motid1 	
+***/
+
+/***
+	dialog "sig", 16
+	E3DSigLoad refstr, hsid, 0, 1.0
+***/
+
+
+	E3DGetDispObjNum@ hsid, objectnum
+
+	sdim objectname, 256, objectnum
+	dim objectinfo, DOI_MAX, objectnum
+	dim objectvertnum, objectnum
+	dim objectfacenum, objectnum
+
+	E3DGetDispObjInfo@ hsid, objectnum, objectname, objectinfo, objectgetnum
+	
+	repeat objectnum
+		E3DGetVertNumOfPart@ hsid, objectinfo.DOI_SERIAL.cnt, objectvertnum.cnt
+		if vertnummax < objectvertnum.cnt : vertnummax = objectvertnum.cnt
+
+		E3DGetFaceNum@ hsid, objectinfo.DOI_SERIAL.cnt, objectfacenum.cnt
+		if facenummax < objectfacenum.cnt : facenummax = objectfacenum.cnt
+	loop
+
+	ddim vertvec, VECTOR, vertnummax, objectnum
+
+	E3DChkInView scid1, hsid
+	E3DRender scid1, hsid, 0
+
+
+	repeat objectnum
+		curobj = cnt
+		repeat objectfacenum.curobj
+			E3DDbgOut "objserial"+objectinfo.DOI_SERIAL.curobj
+			E3DGetFaceNormal@ hsid, objectinfo.DOI_SERIAL.curobj, cnt, vecx, vecy, vecz
+			E3DGetVertNoOfFace@ hsid, objectinfo.DOI_SERIAL.curobj, cnt, vertno1, vertno2, vertno3
+			vertvec.NX.vertno1.curobj += vecx
+			vertvec.NY.vertno1.curobj += vecy
+			vertvec.NZ.vertno1.curobj += vecz
+			vertvec.NX.vertno2.curobj += vecx
+			vertvec.NY.vertno2.curobj += vecy
+			vertvec.NZ.vertno2.curobj += vecz
+			vertvec.NX.vertno3.curobj += vecx
+			vertvec.NY.vertno3.curobj += vecy
+			vertvec.NZ.vertno3.curobj += vecz
+		loop
+	loop
+
+
+/***
+	E3DGetFaceNum hsid, 2, facenum2
+	repeat facenum2
+		E3DGetFaceNormal@ hsid, 2, cnt, vecx, vecy, vecz
+	loop
+***/
+	
+	dialog "OK!"

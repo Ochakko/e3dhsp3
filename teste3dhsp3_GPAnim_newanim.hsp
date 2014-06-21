@@ -1,0 +1,145 @@
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+
+	;カメラの初期化
+	E3DSetCameraPos -1955.0, 4875.0, 622.0	
+	E3DSetCameraTarget -2203.0, 3135.0, 4871.0, 0.0, 1.0, 0.0	
+	E3DSetProjection 1000.0, 40000.0, 45.0
+
+
+	//データ読み込み
+	pathbuf.0 = mediadir + "\\ground05mv.sig"
+	E3DLoadSigFileAsGround pathbuf.0, hsid0, 0, 1.0
+	
+	pathbuf.0 = mediadir + "\\morob_6_26_r3.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+
+	pathbuf.0 = mediadir + "\\moro.qua"
+	E3DAddMotion hsid1, pathbuf.0, motid1, framemax1, 1.0
+	E3DSetMotionKind hsid1, motid1
+
+	//ライトの作成
+	lightdirx1 = 1.0
+	lightdiry1 = -1.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	chkfps1 = 0
+
+	E3DCreateFont 20, 0, 400, 0, 0, 0, "ＭＳ ゴシック", fontid1
+	
+
+/////////
+	pathbuf.0 = mediadir + "\\test1.gpa"
+	E3DLoadGPFile hsid1, pathbuf.0, animno1
+	E3DSetGPGroundHSID hsid1, animno1, hsid0
+
+	pathbuf.0 = mediadir + "\\test2.gpa"
+	E3DLoadGPFile hsid1, pathbuf.0, animno2
+	E3DSetGPGroundHSID hsid1, animno2, hsid0
+
+//	E3DSetGPAnimNo hsid1, animno1
+	
+	E3DSetNextGPAnimFrameNo hsid1, animno1, animno2, 0, -1
+	E3DSetNextGPAnimFrameNo hsid1, animno2, animno1, 0, -1
+
+
+	E3DCreateNewGPAnim hsid1, "GPアニメ", 1, 1, nanimno
+
+	pathbuf.0 = mediadir + "\\my\\my.sig"
+	E3DSigLoad pathbuf.0, hsidn
+	E3DSetPos hsidn, -2203.0, 3135.0, 4871.0
+	E3DSetGPGroundHSID hsid1, nanimno, hsidn
+	
+	E3DSetGPAnimNo hsid1, nanimno
+	
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	E3DSetNewGP hsid1
+	E3DSetNewPose hsid1, frameno1
+	E3DChkInView scid1, hsid0
+	E3DChkInView scid1, hsid1
+
+	E3DBeginScene scid1
+		E3DChkInView scid1, hsidn
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid0, 0, 0, 0
+		E3DRender scid1, hsid1, 0, frameno1, 0
+		E3DRender scid1, hsidn, 0
+
+		;半透明部分の描画をする
+		E3DRender scid1, hsid0, 1, 0, 0, 0, 0, 1
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+		E3DRender scid1, hsidn, 1
+
+		gosub *DrawText
+		
+	E3DEndScene
+	E3DPresent scid1
+
+// 30fps	
+	waitbyfps 30, chkfps1
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	E3DGetGPFrameNo hsid1, curanim, curframe
+
+	textposx = 10 : textposy = 0
+	strchk0 = "animno " + curanim + "  frameno " + curframe
+	E3DDrawTextByFontID scid1, fontid1, textposx, textposy, strchk0, 255, 255, 255, 255
+	
+	return
+

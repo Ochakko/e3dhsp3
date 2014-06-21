@@ -1,0 +1,147 @@
+
+//３Ｄモデルを表示するだけのサンプルです。（最小構成）
+
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 800.0 : camposz = -2000.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 180.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//猫データ読み込み
+	pathbuf.0 = mediadir + "\\bbs_bone1_red2.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+
+
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	chkfps1 = 0
+
+E3DCreateQ qidxz
+
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardState keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+
+;*main
+vkey=0
+if keybuf.VK_LEFT = 1 :vkey+=1 ;左
+if keybuf.VK_RIGHT = 1 :vkey+=4 ;右
+if keybuf.VK_UP = 1 :vkey+=2 ;上
+if keybuf.VK_DOWN = 1 :vkey+=8 ;下
+
+//入力キー情報のベクトル
+if vkey=1 :dirx=-1.0 :dirz= 0.0 //左
+if vkey=2 :dirx= 0.0 :dirz= 1.0 //上
+if vkey=3 :dirx=-1.0 :dirz= 1.0 //左上
+if vkey=4 :dirx= 1.0 :dirz= 0.0 //右
+if vkey=6 :dirx= 1.0 :dirz= 1.0 //右上
+if vkey=8 :dirx= 0.0 :dirz=-1.0 //下
+if vkey=9 :dirx=-1.0 :dirz=-1.0 //左下
+if vkey=12:dirx= 1.0 :dirz=-1.0 //右下
+
+
+//Y座標を省いたカメラとPCの距離
+e3dgetpos hsid1,px,py,pz
+e3dgetcamerapos cx,cy,cz
+vx=px-cx
+;vy=py-cy
+vz=pz-cz
+E3DVec3Length vx, 0, vz,kyori
+
+if vkey!=0 {
+E3DPosForward hsid1,10
+E3DLookAtQ qidxz, dirx, diry, dirz, 0,0,-1, 0, 2
+eventno_pc=1
+}
+
+e3dgetpos hsid1,posx, posy , posz
+camposx = posx : camposy = posy + 4000.0 : camposz = posz - 9000.0
+E3DSetCameraPos camposx, camposy, camposz
+E3DSetCameraTarget posx, posy + 800.0, posz, 0, 1, 0
+
+
+E3DSetDirQ2 hsid1, qidxz
+
+if( keybuf.'X' == 1 ){
+	E3DSetDbgQ qidxz
+}
+
+if( keybuf.'Z' == 1 ){
+	E3DDumpQ qidxz
+}
+
+
+
+
+	E3DBeginScene scid1
+		E3DChkInView scid1, hsid1
+
+		;不透明部分の描画をする
+		E3DRender scid1, hsid1, 0, 0, 0
+
+		;半透明部分の描画をする
+		E3DRender scid1, hsid1, 1, 0, 0, 0, 0, 1
+	E3DEndScene
+	E3DPresent scid1
+	
+	waitbyfps 60, chkfps1
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+

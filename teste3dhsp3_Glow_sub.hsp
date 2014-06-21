@@ -1,0 +1,244 @@
+;	e3dhsp.dll test script
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 512 : screenh = 512
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid0
+//クリア色を黒に
+	E3DSetClearCol scid0, 0, 0, 0, 0
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 800.0 : camposz = -2000.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 180.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//猫データ読み込み
+	pathbuf.0 = mediadir + "\\glow\\glow.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 200
+	lightg1 = 200
+	lightb1 = 200
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+		//グロー対応のためメインの描画はA8でなくてX8にするところに注意
+	E3DCreateRenderTargetTexture 256, 256, scid_org, texid_org, okflag, D3DFMT_X8R8G8B8
+	assert okflag
+	E3DSetClearCol scid_org, 0, 30, 65, 90//クリア色をメタセコ背景色に
+	E3DCreateRenderTargetTexture 256, 256, scid_glow, texid_glow, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DSetClearCol scid_glow, 0, 0, 0, 0
+	E3DCreateRenderTargetTexture 64, 64, scid_small, texid_small, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DSetClearCol scid_small, 0, 0, 0, 0
+	E3DCreateRenderTargetTexture 64, 64, scid_work, texid_work, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DSetClearCol scid_work, 0, 0, 0, 0
+	E3DCreateRenderTargetTexture 64, 64, scid_blur, texid_blur, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DSetClearCol scid_blur, 0, 0, 0, 0	
+	E3DCreateRenderTargetTexture 256, 256, scid_final, texid_final, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DSetClearCol scid_final, 0, 0, 0, 0
+
+	E3DCreateSprite mediadir + "\\dummy256.png", 0, spid1
+	E3DGetSpriteSize spid1, spw1, sph1
+	E3DSetTextureToDispObj -2, spid1, texid_org
+	
+	E3DCreateSprite mediadir + "\\dummy256.png", 0, spid2
+	E3DGetSpriteSize spid2, spw2, sph2
+	E3DSetTextureToDispObj -2, spid2, texid_glow
+
+	E3DCreateSprite mediadir + "\\dummy256.png", 0, spid3
+	E3DGetSpriteSize spid3, spw3, sph3
+	E3DSetTextureToDispObj -2, spid3, texid_final
+
+	chkfps1 = 0
+
+	glowdisp(0) = hsid1
+	dispnum = 1
+
+	E3DGetMaterialNoByName hsid1, "gamen", materialno
+	ddim savecol, 3
+	E3DGetMaterialGlowParams hsid1, materialno, savemode, savecol
+	changedir = 0//0-->初期化。変化なし。　1-->赤を増加。　2-->赤を減少
+	
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	if keybuf.VK_ESCAPE = 1 : goto *bye ; [ESC]で終了
+
+	gosub *ChangeGlowParams
+
+	//テクスチャにシーンをレンダリング
+	E3DBeginScene scid_org
+		E3DChkInView scid_org, hsid1
+		E3DRender scid_org, hsid1, 0, frameno1, 0
+		E3DRender scid_org, hsid1, 1, frameno1, 0, 0, 0, 1		
+		gosub *DrawText
+	E3DEndScene
+
+	//グローを描画。Zバッファはオリジナルシーンのものを使う。
+	E3DBeginScene scid_glow, 4, scid_org
+		E3DRenderGlow glowdisp, dispnum
+	E3DEndScene	
+
+	//グローをサイズの小さいテクスチャに縮小コピー
+	col1(0) = 1.0 : col1(1) = 1.0 : col1(2) = 1.0 : col1(3) = 1.0	
+	col2(0) = 1.0 : col2(1) = 1.0 : col2(2) = 1.0 : col2(3) = 1.0
+	E3DBlendRTTexture scid_small, texid_glow, col1, D3DTEXF_LINEAR, -1, col2, D3DTEXF_LINEAR, D3DBLENDOP_ADD, D3DBLEND_ONE, D3DBLEND_ONE
+
+	//ぼかし処理
+	E3DBlurTextureGauss scid_blur, scid_work, texid_work, texid_small, 20.0
+
+	//ぼかしと元画像をアッドモードでブレンド
+	col3(0) = 1.0 : col3(1) = 1.0 : col3(2) = 1.0 : col3(3) = 1.0	
+	col4(0) = 1.0 : col4(1) = 1.0 : col4(2) = 1.0 : col4(3) = 1.0
+		//両方ともD3DBLEND_ONEじゃないとうまくいかない
+	E3DBlendRTTexture scid_final, texid_org, col3, D3DTEXF_LINEAR, texid_blur, col4, D3DTEXF_LINEAR, D3DBLENDOP_ADD, D3DBLEND_ONE, D3DBLEND_ONE
+
+//	E3DBlendRTTexture scid_final, texid_org, col3, D3DTEXF_POINT, texid_blur, col4, D3DTEXF_POINT, D3DBLENDOP_REVSUBTRACT, D3DBLEND_ZERO, D3DBLEND_INVSRCCOLOR
+
+	//メイン画面に表示
+	E3DBeginScene scid0
+		E3DBeginSprite
+			//元画像を表示
+			scalex = 1.0
+			scaley = 1.0
+			spx = 0
+			spy = 0
+			E3DRenderSprite spid1, scalex, scaley, spx, spy, 0.1
+
+			//グロー画像を表示
+			spx = 256
+			spy = 0
+			E3DRenderSprite spid2, scalex, scaley, spx, spy, 0.1
+
+			//ブレンド画像を表示
+			spx = 0
+			spy = 256
+			E3DRenderSprite spid3, scalex, scaley, spx, spy, 0.1
+		E3DEndSprite
+	E3DEndScene
+	
+	E3DPresent scid0
+
+	waitbyfps 60, chkfps1
+	
+	arno = 0
+	repeat 49
+		befno = 48 - arno
+		aftno = 49 - arno
+		arfps.aftno = arfps.befno
+		arno++
+	loop	
+	arfps.0 = chkfps1
+
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+
+	lcnt = 0
+	avfps = 0
+	repeat 50
+		avfps += arfps.lcnt
+		lcnt++
+	loop
+	avfps = avfps / 50
+	textposx = 10 : textposy = 0
+	strchk3 = "avfps   " + avfps
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+
+
+	textposx = 10 : textposy = 20
+	strchk3 = "push 1 key!!!"
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+
+	return
+
+*ChangeGlowParams
+
+	//1キーを押したら初期状態の場合は変化を開始し、変化しているときは初期状態に戻す。
+	if( keybuf.'1' == 1 ){
+		if( changedir != 0 ){
+			changedir = 0
+			E3DSetMaterialGlowParams hsid1, materialno, savemode, 1, savecol
+		}else{
+			changedir = 1
+			E3DSetMaterialGlowParams hsid1, materialno, savemode, 1, savecol
+		}
+	}
+
+	//グロー色の赤係数が５より小さい間は0.1ずつ増やし、５より大きくなったら0.1ずつ減らす。
+	ddim tempcol, 3
+	E3DGetMaterialGlowParams hsid1, materialno, tempmode, tempcol
+	if( changedir == 1 ){
+		if( tempcol(0) < 5.0 ){
+			tempcol(0) += 0.1
+		}else{
+			changedir = 2
+			tempcol(0) = 5.0
+		}
+	}else{
+		if( changedir == 2 ){
+			if( tempcol(0) > 1.0 ){
+				tempcol(0) -= 0.1
+			}else{
+				changedir = 1
+				tempcol(0) = 1.0
+			}
+		}
+	}
+
+	E3DSetMaterialGlowParams hsid1, materialno, tempmode, 1, tempcol
+
+	return

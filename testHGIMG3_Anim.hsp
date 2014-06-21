@@ -1,0 +1,23 @@
+
+#include "hgimg3.as"
+
+screen 0, 640, 480, 0
+hgini
+
+addxfile id, dir_cur + "\\008\\ozin_run.x"
+regobj oi, id
+
+modelshade id, 0
+
+clscolor $66aaff
+
+cammode CAM_MODE_LOOKAT
+selcpos :objset3 30, 15, -30
+selcint :objset3 0, -5, 0
+
+*main
+	hgdraw
+	hgsync 5
+
+	goto *main
+	

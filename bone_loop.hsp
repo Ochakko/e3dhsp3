@@ -1,0 +1,192 @@
+
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+
+	dim keybuf, 256
+	dim savekeybuf, 256
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media\\my"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	camposx = -2000.0 : camposy = 0.0 : camposz = -1000.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	E3DSetCameraTarget 0,0,0,0,1,0
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//モデルデータ読み込み
+	pathbuf.0 = mediadir + "\\my.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+	E3DGetBoneNoByName hsid1, "中指1_X+", originbone	;ここでつかまってる事にします
+	E3DGetBoneNoByName hsid1, "かかと_X+", endbone	;姿勢情報を取得する為の末端位置
+
+	pathbuf.0 = mediadir + "\\loop.qua"	;一周360度＝36フレームのモーション
+	E3DAddMotion hsid1, pathbuf.0, mk1_loop, max1_loop
+	;E3DAddMotion hsid1, pathbuf.1, mk1_fillup, max1_fillup
+	max1_fillup = 10
+	E3DCreateEmptyMotion hsid1, "loop", max1_fillup, mk1_fillup
+	max1_fillup -- ;最終フレームは(max-1)なので
+
+	E3DCreateFont 20, 0, 400, 0, 0, 0, "ＭＳ ゴシック", fontid1
+
+
+;	E3DSetMotionKind hsid1, 0
+
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	chkfps1 = 0
+	fillup = 0
+	gravity = 20.0;適当
+	vx = 0.0
+	vy = 0.0
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	if keybuf.VK_ESCAPE != 0 : goto *bye ; [ESC]で終了
+
+	E3DCos curdir, Centrix
+	E3DSin curdir, Centriy
+
+	vy += gravity
+	if vy > 3000.0 : vy = 3000.0	;適当
+	vx *= 0.9	;慣性。これも適当
+	vy *= 0.9	;慣性。これも適当
+
+	curposx = mousex
+	curposy = mousey
+	E3DConvScreenTo3D scid1, curposx, curposy, 0.97, convposx, convposy, convposz
+	mx = curposx - befposx
+	my = curposy - befposy
+
+	vx -= mx
+	vy -= my
+
+	E3DDot vx, vy, 0, mx, my, 0, cdot
+	cx = vx * cdot
+	cy = vy * cdot
+	
+	E3DAtan2 vx, vy, curdir	;xとy逆なのは真下を0にする為
+
+	befposx = curposx
+	befposy = curposy
+	
+	E3DVec3Length@ mx, my, 0, speed
+	
+	if (speed > 100){
+		E3DAtan2 -mx, -my, mdir
+		filluppoint = int(mdir / 10)
+		filluppoint = (filluppoint + 36) \ 36	;正規化
+		E3DGetMotionFrameNo@ hsid1, tmp_curmotion, tmp_curframe
+		E3DCopyMotionFrame@ hsid1, tmp_curmotion, tmp_curframe, mk1_fillup, max1_fillup
+		E3DCopyMotionFrame@ hsid1, mk1_loop, filluppoint, mk1_fillup, 0
+		E3DFillUpMotion@ hsid1, mk1_fillup, -1, 0, -1, 0
+		fillup = max1_fillup
+	}
+	if fillup <= 0{
+		E3DAtan2 endposx - orgposx,  orgposy - endposy, mdir
+		filluppoint = int(mdir / 10 + curdir / 10) + rnd(8) - 4;適当にランダム化。ここは本当に適当。割とどうでもいいっぽい
+		filluppoint = (filluppoint + 36) \ 36	;正規化
+		E3DGetMotionFrameNo@ hsid1, tmp_curmotion, tmp_curframe
+		E3DCopyMotionFrame@ hsid1, tmp_curmotion, tmp_curframe, mk1_fillup, max1_fillup
+		E3DCopyMotionFrame@ hsid1, mk1_loop, filluppoint, mk1_fillup, 0
+		E3DFillUpMotion@ hsid1, mk1_fillup, -1, 0, -1, 0
+		fillup = max1_fillup
+	}
+
+	E3DSetMotionFrameNo hsid1, mk1_fillup, fillup
+	E3DSetNewPose hsid1, a
+	E3DGetMotionFrameNo hsid1, curmotion, curframe
+
+	E3DSetPos hsid1, 0, 0, 0	;ボーン位置取得のためにポジション初期化
+	E3DSetDir hsid1, curdir, 0, 0
+	E3DGetBonePos hsid1, originbone, 1, curmotion, curframe, orgposx, orgposy, orgposz, 1
+	E3DGetBonePos hsid1, endbone, 1, curmotion, curframe, endposx, endposy, endposz, 1
+	convposx -= orgposx
+	convposy -= orgposy
+	convposz -= orgposz
+	E3DSetPos hsid1, convposx, convposy, convposz	;指先基準の相対座標
+
+	E3DBeginScene scid1
+		E3DChkInView scid1, hsid1
+
+	;不透明部分の描画をする
+		E3DRender scid1, hsid1, 0, frameno1, 0
+		;半透明部分の描画をする
+		E3DRender scid1, hsid1, 1, frameno1, 0, 0, 0, 1
+
+
+	gosub *DrawText
+		
+	E3DEndScene
+	E3DPresent scid1
+	
+	waitbyfps 30, chkfps1
+
+	fillup --
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*DrawText
+	sdim strchk0, 1024
+
+	textr = 255 : textg = 255 : textb = 255
+	textscale = 1
+	textposx = 10 : textposy = 0
+	strchk0 = "motionID " + curmk + " frameNo " + curframe
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk0
+	textposy += 20
+	strchk0 = "curdir " + curdir
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk0
+	textposy += 20
+	strchk0 = "vx " + vx + " vy " + vy
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk0
+	textposy += 20
+	strchk0 = "cx " + cx + " cy " + cy
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk0
+	
+	return
+

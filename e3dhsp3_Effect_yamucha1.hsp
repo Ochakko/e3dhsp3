@@ -1,0 +1,243 @@
+//////////////////////////////////////////////////////////////////////////////////
+//																				//
+// ポストエフェクトを使用した環境マップと、屈折エフェクトのサンプルです。		//
+// 同梱されたE3D_HLSLをHSPフォルダ内のE3D_HLSLフォルダに上書きしてください。	//
+// このサンプルと環境マップのHLSLはやむちゃさんが作成しました（データ以外）		//
+//////////////////////////////////////////////////////////////////////////////////
+
+#include "e3dhsp3.as"
+
+
+#module
+#deffunc waitbyfps int p1, var fps
+	E3DWaitbyFPS@ p1, fps
+	await 0
+	return
+#global
+	
+
+	dim arfps, 50
+
+	dim keybuf, 256
+	
+
+	;file のpath 用のバッファーの作成
+	pathlen = 2048
+	sdim mediadir, pathlen
+	mediadir = dir_cur + "\\Media"
+	sdim pathbuf, pathlen, 2
+
+
+	screenw = 640 : screenh = 480
+	screen 0, screenw, screenh, 1
+
+	title "Easy3D for HSP3 sample"
+
+	;初期化
+	E3DEnableDbgFile
+	E3DInit 0, -1, 0, 16, 0, scid1
+
+	;カメラの初期化
+	camposx = 0.0 : camposy = 0.0 : camposz = -1300.0
+	E3DSetCameraPos camposx, camposy, camposz	
+	camdegxz = 180.0 : camdegy = 0.0
+	E3DSetCameraDeg camdegxz, camdegy
+
+	;projectionの変更をしたいときは、以下の２行を有効にしてください。
+	proj_near = 100.0 : proj_far = 30000.0 : proj_fov = 60.0
+	E3DSetProjection proj_near, proj_far, proj_fov
+
+
+	//モデルデータ読み込み
+	pathbuf.0 = mediadir + "\\my\\my05.sig"
+	E3DSigLoad pathbuf.0, hsid1
+	E3DSetPos hsid1, 0.0, 0.0, 0.0
+
+	//モーションの読み込み
+	pathbuf.0 = mediadir + "\\my\\アイドル正面.qua"
+	E3DAddMotion hsid1, pathbuf.0, motid1, framemax1
+
+
+	E3DSetMotionKind hsid1, motid1 	
+
+	//ライトの作成
+	lightdirx1 = 0.0
+	lightdiry1 = 0.0
+	lightdirz1 = 1.0
+	lightr1 = 255
+	lightg1 = 255
+	lightb1 = 255
+
+	E3DCreateLight lid1
+	E3DSetDirectionalLight lid1, lightdirx1, lightdiry1, lightdirz1, lightr1, lightg1, lightb1
+
+	//スフィアマップ読み込み
+	E3DCreateTexture mediadir + "\\spheremap.bmp", D3DPOOL_DEFAULT, 0, texid_sphereMap
+
+
+	//レンダリングテクスチャを作成
+	E3DCreateRenderTargetTexture screenw / 2, screenh/2, scid_org, texid_org, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture screenw / 2, screenh/2, scid_final, texid_final, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture screenw / 2, screenh/2, scid_normal, texid_normal, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+	E3DCreateRenderTargetTexture screenw / 2, screenh/2, scid_depth, texid_depth, okflag, D3DFMT_A8R8G8B8
+	assert okflag
+
+	pathbuf.0 = mediadir + "\\dummy256.png"
+	E3DCreateSprite pathbuf.0, 0, spid1
+	E3DSetTextureToDispObj -2, spid1, texid_org
+	E3DGetSpriteSize  spid1, spw1, sph1
+
+	E3DCreateSprite pathbuf.0, 0, spid2
+	E3DSetTextureToDispObj -2, spid2, texid_final
+	E3DGetSpriteSize  spid2, spw2, sph2
+
+	E3DCreateSprite pathbuf.0, 0, spid3
+	E3DSetTextureToDispObj -2, spid3, texid_normal
+	E3DGetSpriteSize  spid3, spw3, sph3
+
+	E3DCreateSprite pathbuf.0, 0, spid4
+	E3DSetTextureToDispObj -2, spid4, texid_depth
+	E3DGetSpriteSize  spid4, spw4, sph4
+
+	//背景
+	E3DCreateBG scid_final, mediadir + "\\check.bmp", "dummy"
+
+	effectType=0
+	effectNum=4
+	
+	chkfps1 = 0
+
+*main
+	; keybuf変数は、メインループの外で、dim keybuf, 256 として、確保しておいてください。
+	E3DGetKeyboardCnt keybuf
+
+	gosub *control
+
+	E3DSetNewPose hsid1, frameno1
+
+
+
+	//背景を描画
+	E3DBeginScene scid_final
+		E3DChkInView scid_final, hsid1
+	E3DEndScene
+
+	//エフェクト前のオリジナルとしてストック
+	col1.0=1.0: col1.1=1.0: col1.2=1.0: col1.3=1.0
+	E3DBlendRTTexture scid_org,texid_final,col1,D3DTEXF_POINT,-1,col1,D3DTEXF_POINT
+
+	//深度マップ・法線マップを描画
+	E3DRenderZandN scid_depth,scid_normal,scid_final,hsid1,4,1+2+4
+;	E3DRenderZandN scid_depth,scid_normal,scid_final,hsid1,4+8,2
+
+	switch effectType
+	case 0:
+	case 2:
+		//環境マップエフェクト
+		E3DShaderConstUserTex 0, texid_org
+		E3DShaderConstUserTex 1, texid_normal
+		E3DShaderConstUserTex 2, texid_sphereMap
+		E3DCallUserShader 0, 0, scid_final
+		swbreak
+	case 1:
+	case 3:
+		//環境マップ付き屈折エフェクト
+		fl4_0(0) = 0.105			//屈折色収差における赤成分の移動量
+		fl4_0(1) = 0.1				//屈折色収差における緑成分の移動量
+		fl4_0(2) = 0.095			//屈折色収差における青成分の移動量
+		fl4_0(3) =  0.1				//垂直入射時のフレネル反射係数(0.0～1.0)
+		E3DShaderConstUserFL4 0, fl4_0
+		E3DShaderConstUserTex 0, texid_org
+		E3DShaderConstUserTex 1, texid_normal
+		E3DShaderConstUserTex 2, texid_sphereMap
+		E3DCallUserShader 1, 0, scid_final
+		swbreak
+	swend
+
+	//モデルを描画
+	if effectType>=2 {
+		E3DBeginScene scid_final,1,scid_final
+			E3DRender scid_final, hsid1, 0, frameno1, 0
+			E3DRender scid_final, hsid1, 1, frameno1, 0, 0, 0, 1		
+		E3DEndScene
+	}
+
+	
+	//4画面を表示
+	E3DBeginScene scid1
+		E3DBeginSprite
+        	E3DRenderSprite spid1, 1.0, 1.0, 0.0, 0.0, 0.5
+        	E3DRenderSprite spid2, 1.0, 1.0, spw1, 0.0, 0.5
+        	E3DRenderSprite spid3, 1.0, 1.0, 0.0, sph1, 0.5
+        	E3DRenderSprite spid4, 1.0, 1.0, spw1, sph1, 0.5
+        E3DEndSprite
+	gosub *DrawText
+    E3DEndScene
+	E3DPresent scid1
+
+
+
+
+
+
+	waitbyfps 30, chkfps1
+	arno = 0
+	repeat 49
+		befno = 48 - arno
+		aftno = 49 - arno
+		arfps.aftno = arfps.befno
+		arno++
+	loop	
+	arfps.0 = chkfps1
+
+
+	goto *main
+
+
+*bye
+	E3DBye
+	end
+
+*control
+	//カメラの操作
+	if keybuf.VK_LEFT : camdegxz += 5.0
+	if keybuf.VK_RIGHT : camdegxz -= 5.0
+	
+	dis= 1300.0
+	camposy = 700.0
+	camposx = dis*sin(-camdegxz/180.0*3.14)
+	camposz = dis*cos(-camdegxz/180.0*3.14)
+	
+	E3DSetCameraPos camposx, camposy, camposz	
+	E3DSetCameraDeg camdegxz, camdegy
+
+	//エフェクトの種類を変更
+	if keybuf.VK_SPACE==1 : effectType=(effectType+1)\effectNum
+	
+	return
+
+
+*DrawText
+	textr = 0 : textg = 0 : textb = 255
+	textscale = 1
+
+	textposx = 10 : textposy = 10
+	strchk3 = "[SPACE] changeFX"
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+
+	textposx = 10 : textposy = 40
+	strchk3 = "FXtype : "
+	switch effectType
+	case 0: strchk3+="SphereMap" : swbreak
+	case 1: strchk3+="Refract+SphereMap" : swbreak
+	case 2: strchk3+="Texture+SphereMap" : swbreak
+	case 3: strchk3+="Texture+Refract+SphereMap" : swbreak
+	swend
+	E3DDrawText textposx, textposy, textscale, textr, textg, textb, strchk3
+
+	return
+
+

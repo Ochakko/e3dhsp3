@@ -1,0 +1,70 @@
+
+
+; キーを押すとスプライトを削除します
+#include "e3dhsp3.as"
+
+E3DEnableDbgFile
+
+screenw = 640 : screenh = 480
+screen 0, screenw, screenh, 1
+
+E3DInit 0, -1, 0, 16, 0, id_scr
+
+mediadir = dir_cur + "\\Media"
+pathbuf.0 = mediadir + "\\circle.bmp"
+
+E3DCreateSprite pathbuf.0, 1, spid1
+E3DCreateSprite pathbuf.0, 1, spid2
+
+
+//gosub *del
+
+	dim keybuf, 256
+
+
+//buffer 5,256,256
+//cls 4
+//color 255,255,255
+//mes "test"
+//E3DCreateSpriteFromBMSCR 5, 1,spid3
+gsel 0,0
+
+//onkey gosub *del
+*main
+
+//onkey 0
+	E3DGetKeyboardState keybuf
+
+	if( keybuf.'B' == 1 ){
+		gosub *del
+	}
+
+pos 100, 100
+mes "spid1 " + spid1
+mes "spid2 " + spid2
+
+E3DBeginScene id_scr
+
+E3DBeginSprite
+E3DRenderSprite spid1, 1, 1, 1, 1
+if 0 <= spid2 : E3DRenderSprite spid2, 1, 1, 50, 50
+//E3DRenderSprite spid3, 1, 1, 100, 100
+E3DEndSprite
+
+E3DEndScene
+E3DPresent id_scr
+
+//onkey 1
+
+E3DWaitbyFPS 1000, fps
+await
+
+goto *main
+
+*del
+if( spid2 >= 0 ){
+	E3DDestroySprite spid2
+	spid2 = -1
+}
+return
+

@@ -1,0 +1,89 @@
+#include "e3dhsp3.as"
+
+;#define global __TEST_A__
+
+#module list id
+
+#modinit
+
+;#ifdef __TEST_A__
+;	E3DCreateSprite@  dir_cur+"\\media\\lake.bmp", 1, id
+;#else
+	count++
+	gsel 3, 0
+	color 0, 0, 0 : boxf
+	pos 0, 0
+	color 255, 255, 255 : mes "Count="+count
+	gsel 0, 0
+	E3DCreateSpriteFromBMSCR@ 3, 1, id
+;#endif
+
+;	E3DGetSpriteSize@ id, _sx, _sy
+	logmes "create "+id
+	return
+
+#modterm
+	logmes "destroy "+id
+	E3DDestroySprite@ id
+	return
+
+#modfunc get_id
+	return id
+
+#global
+
+	E3DEnableDbgFile
+
+	onexit *quit
+
+	dimtype v, 5, 1
+
+	buffer 3, 512, 512
+
+;#ifdef __TEST_A__
+;	color 0, 0, 0 : boxf
+;	pos 0, 0
+;	color 255, 255, 255 : mes "Sprite"
+;	bmpsave "___.bmp"
+;#endif
+
+	gsel 0, 0
+	E3DInit 0, -1, 0, 16, 0, id_scr
+
+	objsize 80, 25
+	pos 0, ginfo_winy - 50
+	button gosub "create", *create
+	button gosub "destroy", *destroy
+
+*main
+	E3DBeginScene id_scr
+
+	E3DBeginSprite
+
+	foreach v
+		get_id v.cnt
+		E3DRenderSprite stat, 1.0, 1.0, cnt * 5, cnt * 5, 0.0
+	loop
+
+	E3DEndSprite
+
+	E3DEndScene
+	E3DPresent id_scr
+
+	E3DWaitbyFPS 60, fps
+	await 0
+
+	goto *main
+
+*create
+	newmod v, list
+	return
+*destroy
+	foreach v : delmod v.cnt : break : loop
+	return
+
+*quit
+	foreach v
+		delmod v.cnt
+	loop
+	end
